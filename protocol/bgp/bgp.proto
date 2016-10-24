@@ -1,0 +1,128 @@
+syntax = "proto2";
+
+package bgp;
+
+import "common";
+
+message MrtMessage {
+  // maximal field value = 2
+
+  optional MrtHeader header = 1;
+  optional MrtBody body = 2;
+}
+
+message MrtHeader {
+  // maximal field value = 4
+
+  optional uint32 timestamp = 1;
+  optional uint32 type = 2;
+  optional uint32 subtype = 3;
+  optional uint32 len = 4;
+}
+
+message MrtBody {
+  // maximal field value = 2
+
+  optional BGP4MPHeader BGP4MPHeader = 1;
+  optional bytes BGPMessage = 2;
+}
+
+message BGP4MPHeader {
+  // maximal field value = 7
+
+  optional uint32 peer_as = 1;
+  optional uint32 local_as = 2;
+  optional uint32 interface_index = 3;
+  optional uint32 address_family = 4;
+  optional common.IPAddressWrapper peer_ip = 5;
+  optional common.IPAddressWrapper local_ip = 6;
+  optional bool is_as4 = 7;
+}
+
+message BGPHeader {
+  // maximal field value = 3
+
+  // 16 bytes marker
+  optional bytes marker = 1;
+  // 2 byte length of BGP msg RFC says should be less than 4096
+  optional uint32 length = 2;
+  // uint8 msg type
+  optional uint32 type = 3;
+}
+
+message BGPUpdate {
+  // maximal field value = 3
+
+  // an AS-path is a sequence of either subsequences of AS-Paths (lists)
+  // or Sets of ASes. We call either of those, segments.
+  message ASPathSegment {
+    // maximal field value = 2 
+
+    repeated uint32 as_set = 1;
+    repeated uint32 as_seq = 2;
+  }
+ 
+  // if this is populated then all the attrs in it are RFC-mandatory,
+  // so required.
+  message AdvertizedRoutes {
+    // maximal field value = 1 
+
+    repeated common.PrefixWrapper prefixes = 1;
+  }
+
+  message Aggregator {
+    // maximal field value = 2 
+
+    optional uint32 as = 1;
+    optional common.IPAddressWrapper ip = 2;
+  }
+
+  message Community {
+    // maximal field value = 2
+
+    // XXX we don't parse deeper into these attribute yet.
+    // but we can store it for now.
+    optional bytes community = 1;
+    optional bytes extended_community = 2;
+  }
+
+  message Communities {
+    // maximal field value = 1
+
+    repeated Community communities = 1;
+  }
+
+  message Attributes {
+    // maximal field value = 12 
+ 
+    optional bool optional_bit = 1;
+    optional bool transitive_bit = 2;
+    optional bool partial_bit = 3;
+    optional bool extended_bit = 4;
+    enum Origin {
+      IGP = 0;
+      EGP = 1;
+      INC = 2;
+    }
+    optional Origin origin = 5;
+    repeated ASPathSegment as_path = 6;
+    optional common.IPAddressWrapper next_hop = 7;
+    optional uint32 multi_exit = 8;
+    optional uint32 local_pref = 9;
+    optional Aggregator aggregator = 10;
+    optional Communities communities = 11;
+    optional bool atomic_aggregate = 12;
+  }
+
+  message WithdrawnRoutes {
+    // maximal field value = 1
+
+    repeated common.PrefixWrapper prefixes = 1;
+  }
+
+  // a message can contain only Advertized routes,
+  // only withdrawn or both.
+  optional AdvertizedRoutes advertized_routes = 1;
+  optional WithdrawnRoutes withdrawn_routes = 2;
+  optional Attributes attrs = 3;
+}

@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package common;
+
+message IPAddressWrapper {
+  //maximal field value = 2
+
+  // must be at least one or the other
+  optional bytes ipv4 = 1;
+  optional bytes ipv6 = 2;
+}
+
+message PrefixWrapper {
+  //maximal field value = 2
+
+  // both are really required
+  optional IPAddressWrapper prefix = 1;
+  optional uint32 mask = 2;
+}
