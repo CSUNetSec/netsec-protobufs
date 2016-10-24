@@ -1,7 +1,5 @@
 syntax = "proto2";
 
-package bgp;
-
 import "common/common.proto";
 
 message MrtMessage {
