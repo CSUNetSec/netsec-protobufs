@@ -2,7 +2,7 @@ syntax = "proto2";
 
 package bgp;
 
-import "common";
+import "common/common.proto";
 
 message MrtMessage {
   // maximal field value = 2
