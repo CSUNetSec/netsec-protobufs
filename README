@@ -1,0 +1,12 @@
+[Description]
+
+Repository that contains all the protocol buffer specifications for data interchange within and from/to the 
+CSU netsec group.
+common/ contains commonly used types like IPAddressWrapper PrefixWrapper and CaptureSpec
+protocol/bgp contains protocol buffers to store parsed BGP messages
+bgpmon/ contains the protobuf specification to interact with the BGPMon system
+
+[Usage]
+
+clone this repo from your project and run protoc like (for golang output of the bgp.proto):
+	protoc --proto_path=netsec-protobufs/ --go_out=. netsec-protobufs/protocol/bgp/bgp.proto
