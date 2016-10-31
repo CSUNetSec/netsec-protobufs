@@ -25,6 +25,22 @@ message MrtBody {
   optional bytes BGPMessage = 2;
 }
 
+// a message of Capture type to facilitate the represtation of a
+// BGP Update from multuple sources (live/mrt etc) to bgpmon 
+// and other systems
+message BGPCapture {
+  //maximal field value = 8
+
+  optional uint32 timestamp = 1;
+  optional uint32 peer_as = 2;
+  optional uint32 local_as = 3;
+  optional uint32 interface_index = 4;
+  optional uint32 address_family = 5;
+  optional IPAddressWrapper peer_ip = 6;
+  optional IPAddressWrapper local_ip = 7;
+  optional BGPUpdate update = 8;
+}
+
 message BGP4MPHeader {
   // maximal field value = 7
 
