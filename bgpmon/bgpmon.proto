@@ -127,6 +127,7 @@ message WriteRequest {
 		BGP_UPDATE = 1;
 		IP_ADDRESS_LOCATION = 2;
 		PREFIX_LOCATION = 3;
+		BGP_CAPTURE = 4;
 	}
 
 	Type type = 1;
@@ -135,6 +136,7 @@ message WriteRequest {
 	BGPUpdateMessage bgp_update_message = 4;
 	IPAddressLocation ip_address_location = 5;
 	PrefixLocation prefix_location = 6;
+	BGPCapture bgp_capture = 7;
 }
 
 message ASNumberLocation {
@@ -144,6 +146,7 @@ message ASNumberLocation {
 	string source = 4;
 }
 
+//XXX phase this out
 message BGPUpdateMessage {
 	int64 timestamp = 1;
 	string collector_ip_address = 2;
@@ -157,6 +160,23 @@ message BGPUpdateMessage {
 	repeated IPPrefix advertised_prefixes = 7;
 	repeated IPPrefix withdrawn_prefixes = 8;
 }
+
+// a message of Capture type to facilitate the represtation of a
+// BGP Update from multuple sources (live/mrt etc) to bgpmon 
+// and other systems. the inner actual update is defined in protocol/bgp
+message BGPCapture {
+	//maximal field value = 8
+
+	uint32 timestamp = 1;
+	uint32 peer_as = 2;
+	uint32 local_as = 3;
+	uint32 interface_index = 4;
+	uint32 address_family = 5;
+	IPAddressWrapper peer_ip = 6;
+	IPAddressWrapper local_ip = 7;
+	BGPUpdate update = 8;
+}
+
 
 message IPAddressLocation {
 	string ip_address = 1;
