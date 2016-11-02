@@ -1,7 +1,9 @@
 syntax = "proto3";
 
-import "common/common.proto";
-import "protocol/bgp/bgp.proto";
+import "github.com/CSUNetSec/netsec-protobufs/common/common.proto";
+import "github.com/CSUNetSec/netsec-protobufs/protocol/bgp/bgp.proto";
+
+package bgpmon;
 
 service Bgpmond {
 	rpc CloseSession(CloseSessionRequest) returns (Empty) {}
@@ -172,9 +174,9 @@ message BGPCapture {
 	uint32 local_as = 3;
 	uint32 interface_index = 4;
 	uint32 address_family = 5;
-	IPAddressWrapper peer_ip = 6;
-	IPAddressWrapper local_ip = 7;
-	BGPUpdate update = 8;
+	common.IPAddressWrapper peer_ip = 6;
+	common.IPAddressWrapper local_ip = 7;
+	bgp.BGPUpdate update = 8;
 }
 
 

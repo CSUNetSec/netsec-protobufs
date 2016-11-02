@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-import "common/common.proto";
+import "github.com/CSUNetSec/netsec-protobufs/common/common.proto";
+
+package bgp;
 
 message MrtMessage {
   // maximal field value = 2
@@ -32,8 +34,8 @@ message BGP4MPHeader {
   uint32 local_as = 2;
   uint32 interface_index = 3;
   uint32 address_family = 4;
-  IPAddressWrapper peer_ip = 5;
-  IPAddressWrapper local_ip = 6;
+  common.IPAddressWrapper peer_ip = 5;
+  common.IPAddressWrapper local_ip = 6;
   bool is_as4 = 7;
 }
 
@@ -65,14 +67,14 @@ message BGPUpdate {
   message AdvertizedRoutes {
     // maximal field value = 1 
 
-    repeated PrefixWrapper prefixes = 1;
+    repeated common.PrefixWrapper prefixes = 1;
   }
 
   message Aggregator {
     // maximal field value = 2 
 
     uint32 as = 1;
-    IPAddressWrapper ip = 2;
+    common.IPAddressWrapper ip = 2;
   }
 
   message Community {
@@ -104,7 +106,7 @@ message BGPUpdate {
     }
     Origin origin = 5;
     repeated ASPathSegment as_path = 6;
-    IPAddressWrapper next_hop = 7;
+    common.IPAddressWrapper next_hop = 7;
     uint32 multi_exit = 8;
     uint32 local_pref = 9;
     Aggregator aggregator = 10;
@@ -115,7 +117,7 @@ message BGPUpdate {
   message WithdrawnRoutes {
     // maximal field value = 1
 
-    repeated PrefixWrapper prefixes = 1;
+    repeated common.PrefixWrapper prefixes = 1;
   }
 
   // a message can contain only Advertized routes,

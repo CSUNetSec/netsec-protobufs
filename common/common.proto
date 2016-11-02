@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package common;
+
 message IPAddressWrapper {
   //maximal field value = 2
 
