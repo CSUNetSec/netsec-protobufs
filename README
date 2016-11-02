@@ -7,23 +7,13 @@ common/ contains commonly used types like IPAddressWrapper PrefixWrapper and Cap
 protocol/bgp contains protocol buffers to store parsed BGP messages
 bgpmon/ contains the protobuf specification to interact with the BGPMon system
 
-[Note]
-For now it seems that leaving the separation of these files to packages in the output programming language is 
-easier. Therefore they don't carry any package information. 
-Below we show the usage from golang. they relevant .protos are compiled and are named under a new package
-"pb", the generated files are copied flat in that directory and then this is imported from our code. 
-
 [Usage]
+For golang hopefully you have cloned this repo in $GOPATH/src/github.com/CSUNetSec/netsec-protobufs
+Since generated files exist in the repo, go should handle this import automatically.
+From your project just import:
+         "github.com/CSUNetSec/netsec-protobufs/common"
+         "github.com/CSUNetSec/netsec-protobufs/protocol/bgp"
+etc
 
-clone this repo from your project and run protoc like this from your Makefile (for golang output):
-
-netsec-protobufs:
-        git clone https://github.com/CSUNetSec/netsec-protobufs;
-
-build-proto: netsec-protobufs
-       	mkdir pb;
-        protoc --proto_path=netsec-protobufs/ --go_out=import_path=pb:netsec-protobufs/ netsec-protobufs/protocol/bgp/bgp.proto netsec-protobufs/common/common.proto;
-        find ./netsec-protobufs -name "*.go" -exec cp {} pb/ \;
-
-then have your protocol buffer imports as:
-	pb "github.com/author/proj/pb"
+If you wish to generated the .go files run: 
+make go
