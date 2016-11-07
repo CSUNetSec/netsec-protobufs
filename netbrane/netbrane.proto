@@ -60,15 +60,11 @@
 // actionable information as to which physical fibres, ports, cary which
 // type of attack traffic.
 syntax = "proto3";
-package nofutz.FlowMinder;
+package netbrane;
 
 import "github.com/CSUNetSec/netsec-protobufs/common/common.proto";
 import "github.com/CSUNetSec/netsec-protobufs/protocol/bgp/bgp.proto";
-
-// Java options (just in case someone wants to look at this from Java)
-option java_package = "com.nofutz.flowminder";
-option java_outer_classname = "FlowMinderProtos";
-
+import "github.com/CSUNetSec/netsec-protobufs/proddle/proddle.proto";
 
 //
 // ---------- Capture and Logging 
@@ -262,11 +258,15 @@ message CaptureRecordUnion {
     FLOW_RECORD = 1;
     BGP_UPDATE_RECORD = 2;
     DNS_RECORD = 3;
+    PROBE_RECORD = 4;
+    PROBE_RESULT_RECORD = 5;
   }
 
-  RecordType record_type = 6;
-  common.CaptureSpec capture_spec = 7;
-  FlowRecord flow_record = 8;
-  bgp.BGPUpdate bgp_update_record = 9;
-  DNSRecord dns_record = 10;
+  RecordType record_type = 2;
+  common.CaptureSpec capture_spec = 3;
+  FlowRecord flow_record = 4;
+  bgp.BGPUpdate bgp_update_record = 5;
+  DNSRecord dns_record = 6;
+  proddle.Probe probe_record = 7;
+  proddle.ProbeResult probe_result_record = 8;
 }
