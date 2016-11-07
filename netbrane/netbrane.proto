@@ -1,5 +1,11 @@
 syntax = "proto3";
 package netbrane;
+// This file contains code as is or derived from NoFutz networks Inc.
+// This code was delivered to Colorado State University as part of
+// the netbrane project and holds a compatible BSD license with the
+// one that is included at the toplevel of this project.
+// The author of that code and the POC for NoFutz Networks is
+// John Reumann: reumann@nofutznetworks.com
 
 import "github.com/CSUNetSec/netsec-protobufs/common/common.proto";
 import "github.com/CSUNetSec/netsec-protobufs/protocol/bgp/bgp.proto";
