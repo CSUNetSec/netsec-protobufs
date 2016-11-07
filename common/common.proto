@@ -17,3 +17,77 @@ message PrefixWrapper {
   IPAddressWrapper prefix = 1;
   uint32 mask = 2;
 }
+
+// We try to keep as much state about the file that we convert as we
+// can, so we have some idea of where this data came from and who
+// handled it
+message CaptureSpec {
+  // Maximal tag value is 14
+
+  // each flow needs a proper id. Such an id is local to the file
+  // in which records refer to it. The capture_spec_id is *not* global.
+  // Global significance is actually the remainder of the fields.
+  int32 capture_spec_id = 1;
+
+  // Some applications, e.g., BGP may be logging verbose debugging
+  // ID's instead of doing a lookup on the capture_spec id above.
+  // the caputre spec and debug_id should have a 1-1 mapping between
+  // them, but the verbose debug id is self-contained.
+  bytes verbose_debug_id = 12;
+
+  //
+  // Capture specification
+  //
+  enum Type {
+    FLOW = 0;
+    BGP_MRT = 1;
+    BGP_LIVE = 2;
+  };
+  Type type = 14;
+
+  string tcpdump_expression = 2;
+
+  // What is the location of the capture in string format
+  // AT&T West LAX POP 1123231
+  string capture_location = 3;
+
+  // What is the location in terms of IP
+  common.IPAddressWrapper capture_location_ip = 4;
+
+  // if the capture node has a dns name, this is it
+  // FQDN e.g., intercept.ny.nofutz.com
+  string capture_location_dns = 5;
+
+  // if there are multiple capture devices in a location
+  // which device is this spec.
+  // e.g., capturehost01.intercept.ny.nofutz.com
+  string capture_node_spec = 6;
+
+  // The interface on which the data was sniffed
+  // ETH10
+  repeated string capture_node_interface = 7;
+
+  // For BGP we may only be capturing a link between this
+  // capture location IP and the ptp_peer.
+  IPAddressWrapper ptp_peer = 13;
+
+  // Capture retrieval specification. The capture was originally
+  // stored somewhere in some file. The original file is identified
+  // below. This is important for provenance, e.g., we might have
+  // to filter out data that was stored on a compromised host.
+  // And if we ever have a bug, this should allow us to reconstruct our
+  // state from the source data.
+  repeated string storage_host = 8;
+  repeated string path_to_files = 9;
+
+  // A pattern that allows us to identify the sequence of files. The
+  // expression is expected to be a PCRE expression.
+  //    http://www.pcre.org/current/doc/html/
+  //
+  // For example, "capture_(%d+)" says that the files are named
+  // capture with the sequence number appended after the _
+  repeated string file_pattern = 10;
+
+  // Username of the file owner
+  string username = 11;
+}

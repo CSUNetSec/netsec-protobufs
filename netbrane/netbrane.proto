@@ -1,0 +1,272 @@
+// (c) 2015 NoFutz Networks Inc. All Rights Reserved
+// Author: reumann@nofutznetworks.com
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// 1. Redistributions of source code must retain the above copyright notice,
+//    this list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright notice,
+//    this list of conditions and the following disclaimer in the documentation
+//    and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+//
+// This file contains the interface between the Netbrane data forwarding
+// infrastructure and the traffic analytics modules.
+//
+// Each netbrane node (uPhage) runs a capture instance that records flows in
+// the network. Each uPhage writes all of the network flows that it detects
+// into a flow-record file. The information about the capture node, and the
+// intercepted flow records themselves are what we refer to as capture. The
+// format of the captured records and the meta information is stored into
+// FlowRecordUnion message types, which either contain a FlowRecord or a
+// CaptureSpec.
+//
+// The analytics infrastructure processes the feed to find anomolous and
+// normal looking traffic. This process is done in periodic batches over the
+// most recently received set of FlowRecords. The outcome of the analytics
+// batch is a RuleSet message, defined elsewhere.
+//
+// This file is a protocol buffer definition, which is a fast serialized
+// byte format for structured data provided as FOSS by Google Inc..
+//
+// For more information on how to use protocol buffers:
+// https://developers.google.com/protocol-buffers/docs/overview
+//
+// The reason for the name FlowMinder was that we babysit flows by observation
+// and controlling them.
+//
+// The file got extended by other fields that are of interest with respect
+// to traffic flows. In the extension we ensure that information be
+// kept simple enough and relevant to the the level of flow correlation,
+// i.e., all information is applicable to a specific set of IP flows at
+// the reporting node (sip and dip keys). All data is timed (second
+// grainularity). All data is typed to allow users to fetch additional
+// information about the flow from the protocol messages.
+//
+// In order to police traffic in the end it is important to provide
+// actionable information as to which physical fibres, ports, cary which
+// type of attack traffic.
+syntax = "proto2";
+package nofutz.FlowMinder;
+
+import "github.com/CSUNetSec/netsec-protobufs/common/common.proto";
+import "github.com/CSUNetSec/netsec-protobufs/protocol/bgp/bgp.proto";
+
+// Java options (just in case someone wants to look at this from Java)
+option java_package = "com.nofutz.flowminder";
+option java_outer_classname = "FlowMinderProtos";
+
+
+//
+// ---------- Capture and Logging 
+//
+
+//
+// Protocol buffer to capture the output of flow records that
+// are spit out from a tool like Argus, Netflow. 
+//
+// The idea is as follows.
+//
+// 1. There are many monitoring stations in the network. Each one of those
+//    is a source of flow data. We describe each of those data source using
+//    a CaptureSpec.
+//
+// 2. The monitoring stations capture information about traffic flows, e.g.
+//    the source-ip, destination-ip, tcp source and destination ports,
+//    timestamp of the record and so on. Each such flow is recorded in
+//    a FlowRecord data item.
+//
+// 3. The records are stored inside one fat file of sequential records.
+//    The records are either of type CaptureSpec or of type FlowRecord. The
+//    container is called a FlowRecordUnion.
+//
+// 4. Each FlowRecord references the CaptureSpec that is responsible for its
+//    capture. 
+//
+// 5. Each CaptureSpec should be defined before it's used but the application
+//    should not break if that is not the case. The information about the
+//    data source is useful in debugging but shouldn't be part of the anoamly
+//    detection. Only the identity of the capture node should matter.
+
+// We don't always capture packet data. If we do, this is
+// the format
+message PacketData {
+  optional uint64 nanos_since_flow_start = 1;
+  optional uint32 packet_size = 2;
+  
+  // IP per packet see RFC 791
+  optional uint32 ip_id = 3;
+
+  // either more fragments after this or offset != 0  
+  optional bool is_fragment = 4;
+
+  // TCP related follows RFC 793
+  // This is the window advertisement
+  // in bytes. 
+  optional int32 window_size = 5;
+  optional uint32 sequence = 6;
+  optional uint32 ack = 7;   
+  optional bool syn = 8;
+  optional bool fin = 9;
+  optional bool reset = 10;
+
+  // Do we need more understanding of options ip and otherwise
+  optional bool options_l3 = 11;
+  optional bool options_l4 = 12;
+}
+
+// Flow originates at address
+message IPFlow {
+  // Maximal tag value is 21
+
+  // really required
+  optional common.IPAddressWrapper address = 1;
+
+  // we may aggregate flows for an entire subnet if we
+  // get too fine-grained with individual flow records.
+  optional common.IPAddressWrapper mask = 2;
+
+  optional int32 port = 3;
+  optional int32 tos = 4;
+  optional int32 ttl = 5;
+  optional int64 bytes = 6;
+
+  // Some sniffers may be able to parse the number of acutal payload bytes
+  optional int64 application_bytes = 7;
+  optional int64 packets = 8;
+  optional float loss = 9;
+
+  // ---------- ICMP ----------
+  optional int32 type = 10;
+  optional int32 code = 11;
+  optional int32 id = 12;
+
+  optional int64 retransmissions = 13;
+
+  // The vlan_id of the packet, empty if no vlan header.
+  optional int32 vlan_id = 14;
+
+  // The L2 source addresses on which we observed this flow
+  repeated bytes source_mac = 15;
+
+  // The L2 destination addresses that were affixed to this flow
+  repeated bytes destination_mac = 16;
+
+  // The physical port id(s) on which we received/sent this flow.
+  repeated int32 physical_port_number = 17;
+
+  // ---------- Tunneling ----------
+
+  // If the intercepted packet is a gre packet, place the key here.
+  optional uint32 gre_key = 18;
+
+  // If we are looking at a tunneled protocol store the inner flow information
+  // here. Note, this is typically the really interesting address.
+  optional common.IPAddressWrapper inner_address = 19;
+  optional common.IPAddressWrapper inner_port = 20;
+
+  // as in IPPROTO_*
+  optional common.IPAddressWrapper inner_protocol = 21;
+
+  // ---------- Additional data ----------
+
+  // We may get richer flow information, e.g., decorated with pcap info.
+  // We store additional information on a per-packet basis in the
+  // sequence of pcap_decoration(s) below
+  // Timestamps in these are relative to the timestamp of the record.
+  // Decoration is most meaningful if the flow describes something
+  // like a single connection. But this is not a requirement. If we
+  // get netflow records we don't get the pcap information.
+  repeated PacketData packet_decor = 22;
+}
+
+message FlowRecord {
+  // Maximal tag value is 11.
+
+  // which capture was responsible for this record.
+  required int32 capture_spec_id = 1;
+
+  // seconds since epoch : deprecated use top-level instead
+  optional int64 timestamp_seconds = 2;
+
+  // really required
+  optional uint32 timestamp_ns = 3;
+
+  // if duration is not set then the flow-record is incomplete, i.e.,
+  // the flow was started but hasn't terminated. If the record is
+  // an aggregate count of many individual records then we set
+  // bucket_duration_us instead of this value.
+  // The field is also unset if this is a single packet.
+  optional int64 duration_us = 4;
+
+  enum L2Proto {
+    L2_NONE = 0;
+    L2_ETHERNET = 1;
+  }
+  optional L2Proto l2_proto = 5 [default = L2_ETHERNET];
+  // L3 protocol is recorded as ETHERTYPE
+  optional int32 l3_proto = 6;
+  optional int32 l4_proto = 7;
+
+  optional IPFlow source = 8;
+  optional IPFlow destination = 9;
+  
+  // The number of individual flow records that have
+  // been rolled up into this entry.
+  optional int64 number_of_aggregated_flows = 10 [default = 1];
+
+  // If we roll up many individual flows into one single bucket
+  // then we need to state the duration of our bucket.
+  optional int64 bucket_duration_us = 11;
+}
+
+message DNSRecord {
+  optional common.IPAddressWrapper requesting_host = 1;
+  optional common.IPAddressWrapper dns_server = 2;
+
+  // The replies
+  repeated common.IPAddressWrapper ips = 3;
+  repeated string cname = 4;
+
+  // The original question
+  optional string query = 5;
+
+  // Is the reply in DNSSec form
+  optional bool dnssec = 6;
+}
+
+// Should contain either a capture_spec or a record. This gives us
+// the ability to parse consecutive records flexibly. The record contains
+// only one of the fields, namely the one identified by record_type.
+// A capture spec is a meta-record meant to describe the file at hand.
+message CaptureRecordUnion {	   
+  // Rough timestamp for indexing or filtering of data. May be
+  // augmented internally.  In UTC since epoch.
+  optional int64 timestamp_seconds = 1;
+
+  enum RecordType {
+    CAPTURE_SPEC = 1;
+    FLOW_RECORD = 2;
+    BGP_UPDATE_RECORD = 3;
+    DNS_RECORD = 4;
+  }
+
+  optional RecordType record_type = 6;
+  optional common.CaptureSpec capture_spec = 7;
+  optional FlowRecord flow_record = 8;
+  optional bgp.BGPUpdate bgp_update_record = 9;
+  optional DNSRecord dns_record = 10;
+}
