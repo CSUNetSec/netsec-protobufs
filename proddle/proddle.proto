@@ -4,88 +4,88 @@ syntax="proto3";
  * probe messages
  */
 enum Protocol {
-    DNS = 0;
-    HTTP = 1;
-    HTTPS = 2;
-    PING = 3;
-    TRACEROUTE = 4;
+  DNS = 0;
+  HTTP = 1;
+  HTTPS = 2;
+  PING = 3;
+  TRACEROUTE = 4;
 }
 
 message Probe {
-    uint64 probe_id = 1;
-    uint32 probe_interval_seconds = 2;
-    uint32 timeout_seconds = 3;
-    uint32 attempts_to_declare_failure = 4;
+  uint64 probe_id = 1;
+  uint32 probe_interval_seconds = 2;
+  uint32 timeout_seconds = 3;
+  uint32 attempts_to_declare_failure = 4;
 
-    Protocol protocol = 5;
-    string domain = 6;
+  Protocol protocol = 5;
+  string domain = 6;
 
-    //DNS specific
-    
-    //HTTP/HTTPS specific
-    uint32 port = 7;
-    string url_suffix = 8;
-    bool follow_redirect = 9;
+  //DNS specific
+  
+  //HTTP/HTTPS specific
+  uint32 port = 7;
+  string url_suffix = 8;
+  bool follow_redirect = 9;
 
-    //PING specific
+  //PING specific
 
-    //TRACEROUTE specific
+  //TRACEROUTE specific
 }
 
 message ProbeResult {
-    uint64 probe_id = 1;
-    string prober_hostname = 2;
-    Protocol protocol = 3;
+  uint64 probe_id = 1;
+  string prober_hostname = 2;
+  Protocol protocol = 3;
 
-    uint64 timestamp_sec = 4;
-    bool success = 5;
-    string error_message = 6;
-    uint64 application_layer_latency_nanosec = 7;
+  uint64 timestamp_sec = 4;
+  bool success = 5;
+  string error_message = 6;
+  uint64 application_layer_latency_nanosec = 7;
 
-    //DNS specific
-    repeated bytes dns_answer = 8;
+  //DNS specific
+  repeated bytes dns_answer = 8;
 
-    //HTTP/HTTPS specific
-    uint32 http_status_code = 9;
-    string http_status_message = 10;    
-    uint32 application_bytes_received = 11;
+  //HTTP/HTTPS specific
+  uint32 http_status_code = 9;
+  string http_status_message = 10;  
+  uint32 application_bytes_received = 11;
 
-    //PING specific
+  //PING specific
 
-    //TRACEROUTE specific
+  //TRACEROUTE specific
 }
 
 /**
  * scheduler service definition
  */
 service Scheduler {
-    rpc CancelProbe(CancelProbeRequest) returns (CancelProbeReply) {}
-    rpc Search(SearchRequest) returns (SearchReply) {}
-    rpc ScheduleProbe(ScheduleProbeRequest)  returns (ScheduleProbeReply) {}
+  rpc CancelProbe(CancelProbeRequest) returns (CancelProbeReply) {}
+  rpc Search(SearchRequest) returns (SearchReply) {}
+  rpc ScheduleProbe(ScheduleProbeRequest)  returns (ScheduleProbeReply) {}
 }
 
 message CancelProbeRequest {
-    string domain = 1;
-    repeated Protocol protocol = 2;
+  string domain = 1;
+  repeated Protocol protocol = 2;
 
-    //HTTP specific
-    string url_suffix = 3;
+  //HTTP specific
+  string url_suffix = 3;
 }
 
 message CancelProbeReply {
 }
 
 message SearchRequest {
-    repeated Protocol protocol = 1;
-    string domain = 2;
+  repeated Protocol protocol = 1;
+  string domain = 2;
 }
 
 message SearchReply {
-    repeated Probe probe = 1;
+  repeated Probe probe = 1;
 }
 
 message ScheduleProbeRequest {
-    repeated Probe probe = 2;
+  repeated Probe probe = 2;
 }
 
 message ScheduleProbeReply {
@@ -95,38 +95,38 @@ message ScheduleProbeReply {
  * probe cache service definition
  */
 service ProbeCache {
-    rpc GetProbes(GetProbesRequest) returns (GetProbesReply) {}
-    rpc GetBucketKeys(GetBucketKeysRequest) returns (GetBucketKeysReply) {}
-    rpc SendProbeResults(SendProbeResultsRequest) returns(SendProbeResultsReply) {}
+  rpc GetProbes(GetProbesRequest) returns (GetProbesReply) {}
+  rpc GetBucketKeys(GetBucketKeysRequest) returns (GetBucketKeysReply) {}
+  rpc SendProbeResults(SendProbeResultsRequest) returns(SendProbeResultsReply) {}
 }
 
 message BucketHash {
-    uint64 bucket_key = 1;
-    uint64 hash = 2;
+  uint64 bucket_key = 1;
+  uint64 hash = 2;
 }
 
 message BucketProbes {
-    uint64 bucket_key = 1;
-    repeated Probe probe = 2;
+  uint64 bucket_key = 1;
+  repeated Probe probe = 2;
 }
 
 message GetProbesRequest {
-    repeated BucketHash bucket_hash = 1; 
+  repeated BucketHash bucket_hash = 1; 
 }
 
 message GetProbesReply {
-    repeated BucketProbes bucket_probes = 1;
+  repeated BucketProbes bucket_probes = 1;
 }
 
 message GetBucketKeysRequest {
 }
 
 message GetBucketKeysReply {
-    repeated uint64 bucket_key = 1;
+  repeated uint64 bucket_key = 1;
 }
 
 message SendProbeResultsRequest {
-    repeated ProbeResult probe_result = 1;
+  repeated ProbeResult probe_result = 1;
 }
 
 message SendProbeResultsReply {
