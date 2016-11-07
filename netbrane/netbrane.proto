@@ -59,7 +59,7 @@
 // In order to police traffic in the end it is important to provide
 // actionable information as to which physical fibres, ports, cary which
 // type of attack traffic.
-syntax = "proto2";
+syntax = "proto3";
 package nofutz.FlowMinder;
 
 import "github.com/CSUNetSec/netsec-protobufs/common/common.proto";
@@ -104,28 +104,28 @@ option java_outer_classname = "FlowMinderProtos";
 // We don't always capture packet data. If we do, this is
 // the format
 message PacketData {
-  optional uint64 nanos_since_flow_start = 1;
-  optional uint32 packet_size = 2;
+  uint64 nanos_since_flow_start = 1;
+  uint32 packet_size = 2;
   
   // IP per packet see RFC 791
-  optional uint32 ip_id = 3;
+  uint32 ip_id = 3;
 
   // either more fragments after this or offset != 0  
-  optional bool is_fragment = 4;
+  bool is_fragment = 4;
 
   // TCP related follows RFC 793
   // This is the window advertisement
   // in bytes. 
-  optional int32 window_size = 5;
-  optional uint32 sequence = 6;
-  optional uint32 ack = 7;   
-  optional bool syn = 8;
-  optional bool fin = 9;
-  optional bool reset = 10;
+  int32 window_size = 5;
+  uint32 sequence = 6;
+  uint32 ack = 7;   
+  bool syn = 8;
+  bool fin = 9;
+  bool reset = 10;
 
   // Do we need more understanding of options ip and otherwise
-  optional bool options_l3 = 11;
-  optional bool options_l4 = 12;
+  bool options_l3 = 11;
+  bool options_l4 = 12;
 }
 
 // Flow originates at address
@@ -133,31 +133,31 @@ message IPFlow {
   // Maximal tag value is 21
 
   // really required
-  optional common.IPAddressWrapper address = 1;
+  common.IPAddressWrapper address = 1;
 
   // we may aggregate flows for an entire subnet if we
   // get too fine-grained with individual flow records.
-  optional common.IPAddressWrapper mask = 2;
+  common.IPAddressWrapper mask = 2;
 
-  optional int32 port = 3;
-  optional int32 tos = 4;
-  optional int32 ttl = 5;
-  optional int64 bytes = 6;
+  int32 port = 3;
+  int32 tos = 4;
+  int32 ttl = 5;
+  int64 bytes = 6;
 
   // Some sniffers may be able to parse the number of acutal payload bytes
-  optional int64 application_bytes = 7;
-  optional int64 packets = 8;
-  optional float loss = 9;
+  int64 application_bytes = 7;
+  int64 packets = 8;
+  float loss = 9;
 
   // ---------- ICMP ----------
-  optional int32 type = 10;
-  optional int32 code = 11;
-  optional int32 id = 12;
+  int32 type = 10;
+  int32 code = 11;
+  int32 id = 12;
 
-  optional int64 retransmissions = 13;
+  int64 retransmissions = 13;
 
   // The vlan_id of the packet, empty if no vlan header.
-  optional int32 vlan_id = 14;
+  int32 vlan_id = 14;
 
   // The L2 source addresses on which we observed this flow
   repeated bytes source_mac = 15;
@@ -171,15 +171,15 @@ message IPFlow {
   // ---------- Tunneling ----------
 
   // If the intercepted packet is a gre packet, place the key here.
-  optional uint32 gre_key = 18;
+  uint32 gre_key = 18;
 
   // If we are looking at a tunneled protocol store the inner flow information
   // here. Note, this is typically the really interesting address.
-  optional common.IPAddressWrapper inner_address = 19;
-  optional common.IPAddressWrapper inner_port = 20;
+  common.IPAddressWrapper inner_address = 19;
+  common.IPAddressWrapper inner_port = 20;
 
   // as in IPPROTO_*
-  optional common.IPAddressWrapper inner_protocol = 21;
+  common.IPAddressWrapper inner_protocol = 21;
 
   // ---------- Additional data ----------
 
@@ -197,55 +197,55 @@ message FlowRecord {
   // Maximal tag value is 11.
 
   // which capture was responsible for this record.
-  required int32 capture_spec_id = 1;
+  int32 capture_spec_id = 1;
 
   // seconds since epoch : deprecated use top-level instead
-  optional int64 timestamp_seconds = 2;
+  int64 timestamp_seconds = 2;
 
   // really required
-  optional uint32 timestamp_ns = 3;
+  uint32 timestamp_ns = 3;
 
   // if duration is not set then the flow-record is incomplete, i.e.,
   // the flow was started but hasn't terminated. If the record is
   // an aggregate count of many individual records then we set
   // bucket_duration_us instead of this value.
   // The field is also unset if this is a single packet.
-  optional int64 duration_us = 4;
+  int64 duration_us = 4;
 
   enum L2Proto {
     L2_NONE = 0;
     L2_ETHERNET = 1;
   }
-  optional L2Proto l2_proto = 5 [default = L2_ETHERNET];
+  L2Proto l2_proto = 5;
   // L3 protocol is recorded as ETHERTYPE
-  optional int32 l3_proto = 6;
-  optional int32 l4_proto = 7;
+  int32 l3_proto = 6;
+  int32 l4_proto = 7;
 
-  optional IPFlow source = 8;
-  optional IPFlow destination = 9;
+  IPFlow source = 8;
+  IPFlow destination = 9;
   
   // The number of individual flow records that have
   // been rolled up into this entry.
-  optional int64 number_of_aggregated_flows = 10 [default = 1];
+  int64 number_of_aggregated_flows = 10;
 
   // If we roll up many individual flows into one single bucket
   // then we need to state the duration of our bucket.
-  optional int64 bucket_duration_us = 11;
+  int64 bucket_duration_us = 11;
 }
 
 message DNSRecord {
-  optional common.IPAddressWrapper requesting_host = 1;
-  optional common.IPAddressWrapper dns_server = 2;
+  common.IPAddressWrapper requesting_host = 1;
+  common.IPAddressWrapper dns_server = 2;
 
   // The replies
   repeated common.IPAddressWrapper ips = 3;
   repeated string cname = 4;
 
   // The original question
-  optional string query = 5;
+  string query = 5;
 
   // Is the reply in DNSSec form
-  optional bool dnssec = 6;
+  bool dnssec = 6;
 }
 
 // Should contain either a capture_spec or a record. This gives us
@@ -255,18 +255,18 @@ message DNSRecord {
 message CaptureRecordUnion {	   
   // Rough timestamp for indexing or filtering of data. May be
   // augmented internally.  In UTC since epoch.
-  optional int64 timestamp_seconds = 1;
+  int64 timestamp_seconds = 1;
 
   enum RecordType {
-    CAPTURE_SPEC = 1;
-    FLOW_RECORD = 2;
-    BGP_UPDATE_RECORD = 3;
-    DNS_RECORD = 4;
+    CAPTURE_SPEC = 0;
+    FLOW_RECORD = 1;
+    BGP_UPDATE_RECORD = 2;
+    DNS_RECORD = 3;
   }
 
-  optional RecordType record_type = 6;
-  optional common.CaptureSpec capture_spec = 7;
-  optional FlowRecord flow_record = 8;
-  optional bgp.BGPUpdate bgp_update_record = 9;
-  optional DNSRecord dns_record = 10;
+  RecordType record_type = 6;
+  common.CaptureSpec capture_spec = 7;
+  FlowRecord flow_record = 8;
+  bgp.BGPUpdate bgp_update_record = 9;
+  DNSRecord dns_record = 10;
 }
