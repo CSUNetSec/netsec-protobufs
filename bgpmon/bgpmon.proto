@@ -43,13 +43,6 @@ message PrefixHijackModule {
 	int32 periodic_seconds = 1;
 	int32 timeout_seconds = 2;
 	repeated string in_session_id = 3;
-
-    message MonitorPrefix {
-        common.PrefixWrapper prefix = 1;
-        repeated uint32 as_number = 2;
-    }
-
-    repeated MonitorPrefix monitor_prefixes = 4;
 }
 
 /*
