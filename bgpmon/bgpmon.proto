@@ -83,6 +83,7 @@ message StopModuleRequest {
 enum SessionType {
 	CASSANDRA = 0;
 	FILE = 1;
+	COCKROACH = 2;
 }
 
 message CassandraSession {
@@ -90,6 +91,14 @@ message CassandraSession {
 	string password = 2;
 	repeated string hosts = 3;
 	uint32 workerCount = 4;
+}
+
+message CockroachSession {
+	string username = 1;
+	string password = 2;
+	repeated string hosts = 3;
+	uint32 workerCount = 4;
+	string certdir = 5;
 }
 
 message FileSession {
@@ -112,6 +121,7 @@ message OpenSessionRequest {
 	string session_id = 2;
 	CassandraSession cassandra_session = 3;
 	FileSession file_session = 4;
+	CockroachSession cockroach_session = 5;
 }
 
 message OpenSessionReply {
