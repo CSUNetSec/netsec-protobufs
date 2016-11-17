@@ -98,6 +98,69 @@ func (m *Probe) String() string            { return proto.CompactTextString(m) }
 func (*Probe) ProtoMessage()               {}
 func (*Probe) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+func (m *Probe) GetProbeId() uint64 {
+	if m != nil {
+		return m.ProbeId
+	}
+	return 0
+}
+
+func (m *Probe) GetProbeIntervalSeconds() uint32 {
+	if m != nil {
+		return m.ProbeIntervalSeconds
+	}
+	return 0
+}
+
+func (m *Probe) GetTimeoutSeconds() uint32 {
+	if m != nil {
+		return m.TimeoutSeconds
+	}
+	return 0
+}
+
+func (m *Probe) GetAttemptsToDeclareFailure() uint32 {
+	if m != nil {
+		return m.AttemptsToDeclareFailure
+	}
+	return 0
+}
+
+func (m *Probe) GetProtocol() Protocol {
+	if m != nil {
+		return m.Protocol
+	}
+	return Protocol_DNS
+}
+
+func (m *Probe) GetDomain() string {
+	if m != nil {
+		return m.Domain
+	}
+	return ""
+}
+
+func (m *Probe) GetPort() uint32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Probe) GetUrlSuffix() string {
+	if m != nil {
+		return m.UrlSuffix
+	}
+	return ""
+}
+
+func (m *Probe) GetFollowRedirect() bool {
+	if m != nil {
+		return m.FollowRedirect
+	}
+	return false
+}
+
 type ProbeResult struct {
 	ProbeId                        uint64   `protobuf:"varint,1,opt,name=probe_id,json=probeId" json:"probe_id,omitempty"`
 	ProberHostname                 string   `protobuf:"bytes,2,opt,name=prober_hostname,json=proberHostname" json:"prober_hostname,omitempty"`
@@ -119,6 +182,83 @@ func (m *ProbeResult) String() string            { return proto.CompactTextStrin
 func (*ProbeResult) ProtoMessage()               {}
 func (*ProbeResult) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
+func (m *ProbeResult) GetProbeId() uint64 {
+	if m != nil {
+		return m.ProbeId
+	}
+	return 0
+}
+
+func (m *ProbeResult) GetProberHostname() string {
+	if m != nil {
+		return m.ProberHostname
+	}
+	return ""
+}
+
+func (m *ProbeResult) GetProtocol() Protocol {
+	if m != nil {
+		return m.Protocol
+	}
+	return Protocol_DNS
+}
+
+func (m *ProbeResult) GetTimestampSec() uint64 {
+	if m != nil {
+		return m.TimestampSec
+	}
+	return 0
+}
+
+func (m *ProbeResult) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
+func (m *ProbeResult) GetErrorMessage() string {
+	if m != nil {
+		return m.ErrorMessage
+	}
+	return ""
+}
+
+func (m *ProbeResult) GetApplicationLayerLatencyNanosec() uint64 {
+	if m != nil {
+		return m.ApplicationLayerLatencyNanosec
+	}
+	return 0
+}
+
+func (m *ProbeResult) GetDnsAnswer() [][]byte {
+	if m != nil {
+		return m.DnsAnswer
+	}
+	return nil
+}
+
+func (m *ProbeResult) GetHttpStatusCode() uint32 {
+	if m != nil {
+		return m.HttpStatusCode
+	}
+	return 0
+}
+
+func (m *ProbeResult) GetHttpStatusMessage() string {
+	if m != nil {
+		return m.HttpStatusMessage
+	}
+	return ""
+}
+
+func (m *ProbeResult) GetApplicationBytesReceived() uint32 {
+	if m != nil {
+		return m.ApplicationBytesReceived
+	}
+	return 0
+}
+
 type CancelProbeRequest struct {
 	Domain   string     `protobuf:"bytes,1,opt,name=domain" json:"domain,omitempty"`
 	Protocol []Protocol `protobuf:"varint,2,rep,packed,name=protocol,enum=proddle.Protocol" json:"protocol,omitempty"`
@@ -130,6 +270,27 @@ func (m *CancelProbeRequest) Reset()                    { *m = CancelProbeReques
 func (m *CancelProbeRequest) String() string            { return proto.CompactTextString(m) }
 func (*CancelProbeRequest) ProtoMessage()               {}
 func (*CancelProbeRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *CancelProbeRequest) GetDomain() string {
+	if m != nil {
+		return m.Domain
+	}
+	return ""
+}
+
+func (m *CancelProbeRequest) GetProtocol() []Protocol {
+	if m != nil {
+		return m.Protocol
+	}
+	return nil
+}
+
+func (m *CancelProbeRequest) GetUrlSuffix() string {
+	if m != nil {
+		return m.UrlSuffix
+	}
+	return ""
+}
 
 type CancelProbeReply struct {
 }
@@ -148,6 +309,20 @@ func (m *SearchRequest) Reset()                    { *m = SearchRequest{} }
 func (m *SearchRequest) String() string            { return proto.CompactTextString(m) }
 func (*SearchRequest) ProtoMessage()               {}
 func (*SearchRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+func (m *SearchRequest) GetProtocol() []Protocol {
+	if m != nil {
+		return m.Protocol
+	}
+	return nil
+}
+
+func (m *SearchRequest) GetDomain() string {
+	if m != nil {
+		return m.Domain
+	}
+	return ""
+}
 
 type SearchReply struct {
 	Probe []*Probe `protobuf:"bytes,1,rep,name=probe" json:"probe,omitempty"`
@@ -199,6 +374,20 @@ func (m *BucketHash) String() string            { return proto.CompactTextString
 func (*BucketHash) ProtoMessage()               {}
 func (*BucketHash) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
 
+func (m *BucketHash) GetBucketKey() uint64 {
+	if m != nil {
+		return m.BucketKey
+	}
+	return 0
+}
+
+func (m *BucketHash) GetHash() uint64 {
+	if m != nil {
+		return m.Hash
+	}
+	return 0
+}
+
 type BucketProbes struct {
 	BucketKey uint64   `protobuf:"varint,1,opt,name=bucket_key,json=bucketKey" json:"bucket_key,omitempty"`
 	Probe     []*Probe `protobuf:"bytes,2,rep,name=probe" json:"probe,omitempty"`
@@ -208,6 +397,13 @@ func (m *BucketProbes) Reset()                    { *m = BucketProbes{} }
 func (m *BucketProbes) String() string            { return proto.CompactTextString(m) }
 func (*BucketProbes) ProtoMessage()               {}
 func (*BucketProbes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
+
+func (m *BucketProbes) GetBucketKey() uint64 {
+	if m != nil {
+		return m.BucketKey
+	}
+	return 0
+}
 
 func (m *BucketProbes) GetProbe() []*Probe {
 	if m != nil {
@@ -265,6 +461,13 @@ func (m *GetBucketKeysReply) String() string            { return proto.CompactTe
 func (*GetBucketKeysReply) ProtoMessage()               {}
 func (*GetBucketKeysReply) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{13} }
 
+func (m *GetBucketKeysReply) GetBucketKey() []uint64 {
+	if m != nil {
+		return m.BucketKey
+	}
+	return nil
+}
+
 type SendProbeResultsRequest struct {
 	ProbeResult []*ProbeResult `protobuf:"bytes,1,rep,name=probe_result,json=probeResult" json:"probe_result,omitempty"`
 }
@@ -315,7 +518,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for Scheduler service
 
@@ -444,7 +647,7 @@ var _Scheduler_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor0,
+	Metadata: "github.com/CSUNetSec/netsec-protobufs/proddle/proddle.proto",
 }
 
 // Client API for ProbeCache service
@@ -574,7 +777,7 @@ var _ProbeCache_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor0,
+	Metadata: "github.com/CSUNetSec/netsec-protobufs/proddle/proddle.proto",
 }
 
 func init() {

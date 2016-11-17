@@ -119,6 +119,90 @@ func (m *PacketData) String() string            { return proto.CompactTextString
 func (*PacketData) ProtoMessage()               {}
 func (*PacketData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+func (m *PacketData) GetNanosSinceFlowStart() uint64 {
+	if m != nil {
+		return m.NanosSinceFlowStart
+	}
+	return 0
+}
+
+func (m *PacketData) GetPacketSize() uint32 {
+	if m != nil {
+		return m.PacketSize
+	}
+	return 0
+}
+
+func (m *PacketData) GetIpId() uint32 {
+	if m != nil {
+		return m.IpId
+	}
+	return 0
+}
+
+func (m *PacketData) GetIsFragment() bool {
+	if m != nil {
+		return m.IsFragment
+	}
+	return false
+}
+
+func (m *PacketData) GetWindowSize() int32 {
+	if m != nil {
+		return m.WindowSize
+	}
+	return 0
+}
+
+func (m *PacketData) GetSequence() uint32 {
+	if m != nil {
+		return m.Sequence
+	}
+	return 0
+}
+
+func (m *PacketData) GetAck() uint32 {
+	if m != nil {
+		return m.Ack
+	}
+	return 0
+}
+
+func (m *PacketData) GetSyn() bool {
+	if m != nil {
+		return m.Syn
+	}
+	return false
+}
+
+func (m *PacketData) GetFin() bool {
+	if m != nil {
+		return m.Fin
+	}
+	return false
+}
+
+func (m *PacketData) GetReset_() bool {
+	if m != nil {
+		return m.Reset_
+	}
+	return false
+}
+
+func (m *PacketData) GetOptionsL3() bool {
+	if m != nil {
+		return m.OptionsL3
+	}
+	return false
+}
+
+func (m *PacketData) GetOptionsL4() bool {
+	if m != nil {
+		return m.OptionsL4
+	}
+	return false
+}
+
 // Flow originates at address
 type IPFlow struct {
 	// really required
@@ -184,6 +268,118 @@ func (m *IPFlow) GetMask() *common.IPAddressWrapper {
 	return nil
 }
 
+func (m *IPFlow) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *IPFlow) GetTos() int32 {
+	if m != nil {
+		return m.Tos
+	}
+	return 0
+}
+
+func (m *IPFlow) GetTtl() int32 {
+	if m != nil {
+		return m.Ttl
+	}
+	return 0
+}
+
+func (m *IPFlow) GetBytes() int64 {
+	if m != nil {
+		return m.Bytes
+	}
+	return 0
+}
+
+func (m *IPFlow) GetApplicationBytes() int64 {
+	if m != nil {
+		return m.ApplicationBytes
+	}
+	return 0
+}
+
+func (m *IPFlow) GetPackets() int64 {
+	if m != nil {
+		return m.Packets
+	}
+	return 0
+}
+
+func (m *IPFlow) GetLoss() float32 {
+	if m != nil {
+		return m.Loss
+	}
+	return 0
+}
+
+func (m *IPFlow) GetType() int32 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
+
+func (m *IPFlow) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *IPFlow) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *IPFlow) GetRetransmissions() int64 {
+	if m != nil {
+		return m.Retransmissions
+	}
+	return 0
+}
+
+func (m *IPFlow) GetVlanId() int32 {
+	if m != nil {
+		return m.VlanId
+	}
+	return 0
+}
+
+func (m *IPFlow) GetSourceMac() [][]byte {
+	if m != nil {
+		return m.SourceMac
+	}
+	return nil
+}
+
+func (m *IPFlow) GetDestinationMac() [][]byte {
+	if m != nil {
+		return m.DestinationMac
+	}
+	return nil
+}
+
+func (m *IPFlow) GetPhysicalPortNumber() []int32 {
+	if m != nil {
+		return m.PhysicalPortNumber
+	}
+	return nil
+}
+
+func (m *IPFlow) GetGreKey() uint32 {
+	if m != nil {
+		return m.GreKey
+	}
+	return 0
+}
+
 func (m *IPFlow) GetInnerAddress() *common.IPAddressWrapper {
 	if m != nil {
 		return m.InnerAddress
@@ -244,6 +440,55 @@ func (m *FlowRecord) String() string            { return proto.CompactTextString
 func (*FlowRecord) ProtoMessage()               {}
 func (*FlowRecord) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
 
+func (m *FlowRecord) GetCaptureSpecId() int32 {
+	if m != nil {
+		return m.CaptureSpecId
+	}
+	return 0
+}
+
+func (m *FlowRecord) GetTimestampSeconds() int64 {
+	if m != nil {
+		return m.TimestampSeconds
+	}
+	return 0
+}
+
+func (m *FlowRecord) GetTimestampNs() uint32 {
+	if m != nil {
+		return m.TimestampNs
+	}
+	return 0
+}
+
+func (m *FlowRecord) GetDurationUs() int64 {
+	if m != nil {
+		return m.DurationUs
+	}
+	return 0
+}
+
+func (m *FlowRecord) GetL2Proto() FlowRecord_L2Proto {
+	if m != nil {
+		return m.L2Proto
+	}
+	return FlowRecord_L2_NONE
+}
+
+func (m *FlowRecord) GetL3Proto() int32 {
+	if m != nil {
+		return m.L3Proto
+	}
+	return 0
+}
+
+func (m *FlowRecord) GetL4Proto() int32 {
+	if m != nil {
+		return m.L4Proto
+	}
+	return 0
+}
+
 func (m *FlowRecord) GetSource() *IPFlow {
 	if m != nil {
 		return m.Source
@@ -256,6 +501,20 @@ func (m *FlowRecord) GetDestination() *IPFlow {
 		return m.Destination
 	}
 	return nil
+}
+
+func (m *FlowRecord) GetNumberOfAggregatedFlows() int64 {
+	if m != nil {
+		return m.NumberOfAggregatedFlows
+	}
+	return 0
+}
+
+func (m *FlowRecord) GetBucketDurationUs() int64 {
+	if m != nil {
+		return m.BucketDurationUs
+	}
+	return 0
 }
 
 type DNSRecord struct {
@@ -296,6 +555,27 @@ func (m *DNSRecord) GetIps() []*common.IPAddressWrapper {
 	return nil
 }
 
+func (m *DNSRecord) GetCname() []string {
+	if m != nil {
+		return m.Cname
+	}
+	return nil
+}
+
+func (m *DNSRecord) GetQuery() string {
+	if m != nil {
+		return m.Query
+	}
+	return ""
+}
+
+func (m *DNSRecord) GetDnssec() bool {
+	if m != nil {
+		return m.Dnssec
+	}
+	return false
+}
+
 // Should contain either a capture_spec or a record. This gives us
 // the ability to parse consecutive records flexibly. The record contains
 // only one of the fields, namely the one identified by record_type.
@@ -317,6 +597,20 @@ func (m *CaptureRecordUnion) Reset()                    { *m = CaptureRecordUnio
 func (m *CaptureRecordUnion) String() string            { return proto.CompactTextString(m) }
 func (*CaptureRecordUnion) ProtoMessage()               {}
 func (*CaptureRecordUnion) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+func (m *CaptureRecordUnion) GetTimestampSeconds() int64 {
+	if m != nil {
+		return m.TimestampSeconds
+	}
+	return 0
+}
+
+func (m *CaptureRecordUnion) GetRecordType() CaptureRecordUnion_RecordType {
+	if m != nil {
+		return m.RecordType
+	}
+	return CaptureRecordUnion_CAPTURE_SPEC
+}
 
 func (m *CaptureRecordUnion) GetCaptureSpec() *common.CaptureSpec {
 	if m != nil {

@@ -159,6 +159,20 @@ func (m *GoBGPLinkModule) String() string            { return proto.CompactTextS
 func (*GoBGPLinkModule) ProtoMessage()               {}
 func (*GoBGPLinkModule) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
+func (m *GoBGPLinkModule) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+func (m *GoBGPLinkModule) GetOutSessionId() []string {
+	if m != nil {
+		return m.OutSessionId
+	}
+	return nil
+}
+
 type PrefixByAsNumberModule struct {
 	StartTime   int64    `protobuf:"varint,1,opt,name=start_time,json=startTime" json:"start_time,omitempty"`
 	EndTime     int64    `protobuf:"varint,2,opt,name=end_time,json=endTime" json:"end_time,omitempty"`
@@ -169,6 +183,27 @@ func (m *PrefixByAsNumberModule) Reset()                    { *m = PrefixByAsNum
 func (m *PrefixByAsNumberModule) String() string            { return proto.CompactTextString(m) }
 func (*PrefixByAsNumberModule) ProtoMessage()               {}
 func (*PrefixByAsNumberModule) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *PrefixByAsNumberModule) GetStartTime() int64 {
+	if m != nil {
+		return m.StartTime
+	}
+	return 0
+}
+
+func (m *PrefixByAsNumberModule) GetEndTime() int64 {
+	if m != nil {
+		return m.EndTime
+	}
+	return 0
+}
+
+func (m *PrefixByAsNumberModule) GetInSessionId() []string {
+	if m != nil {
+		return m.InSessionId
+	}
+	return nil
+}
 
 type PrefixHijackModule struct {
 	PeriodicSeconds int32    `protobuf:"varint,1,opt,name=periodic_seconds,json=periodicSeconds" json:"periodic_seconds,omitempty"`
@@ -181,6 +216,27 @@ func (m *PrefixHijackModule) String() string            { return proto.CompactTe
 func (*PrefixHijackModule) ProtoMessage()               {}
 func (*PrefixHijackModule) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
+func (m *PrefixHijackModule) GetPeriodicSeconds() int32 {
+	if m != nil {
+		return m.PeriodicSeconds
+	}
+	return 0
+}
+
+func (m *PrefixHijackModule) GetTimeoutSeconds() int32 {
+	if m != nil {
+		return m.TimeoutSeconds
+	}
+	return 0
+}
+
+func (m *PrefixHijackModule) GetInSessionId() []string {
+	if m != nil {
+		return m.InSessionId
+	}
+	return nil
+}
+
 //
 // Module Command Messages
 type ListModulesReply struct {
@@ -192,6 +248,13 @@ func (m *ListModulesReply) String() string            { return proto.CompactText
 func (*ListModulesReply) ProtoMessage()               {}
 func (*ListModulesReply) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
 
+func (m *ListModulesReply) GetModuleId() []string {
+	if m != nil {
+		return m.ModuleId
+	}
+	return nil
+}
+
 type RunModuleRequest struct {
 	Type                   ModuleType              `protobuf:"varint,1,opt,name=type,enum=bgpmon.ModuleType" json:"type,omitempty"`
 	PrefixByAsNumberModule *PrefixByAsNumberModule `protobuf:"bytes,2,opt,name=prefix_by_as_number_module,json=prefixByAsNumberModule" json:"prefix_by_as_number_module,omitempty"`
@@ -202,6 +265,13 @@ func (m *RunModuleRequest) Reset()                    { *m = RunModuleRequest{} 
 func (m *RunModuleRequest) String() string            { return proto.CompactTextString(m) }
 func (*RunModuleRequest) ProtoMessage()               {}
 func (*RunModuleRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+func (m *RunModuleRequest) GetType() ModuleType {
+	if m != nil {
+		return m.Type
+	}
+	return ModuleType_GOBGP_LINK
+}
 
 func (m *RunModuleRequest) GetPrefixByAsNumberModule() *PrefixByAsNumberModule {
 	if m != nil {
@@ -226,6 +296,13 @@ func (m *RunModuleReply) String() string            { return proto.CompactTextSt
 func (*RunModuleReply) ProtoMessage()               {}
 func (*RunModuleReply) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
 
+func (m *RunModuleReply) GetModuleMessage() string {
+	if m != nil {
+		return m.ModuleMessage
+	}
+	return ""
+}
+
 type StartModuleRequest struct {
 	Type               ModuleType          `protobuf:"varint,1,opt,name=type,enum=bgpmon.ModuleType" json:"type,omitempty"`
 	ModuleId           string              `protobuf:"bytes,2,opt,name=module_id,json=moduleId" json:"module_id,omitempty"`
@@ -237,6 +314,20 @@ func (m *StartModuleRequest) Reset()                    { *m = StartModuleReques
 func (m *StartModuleRequest) String() string            { return proto.CompactTextString(m) }
 func (*StartModuleRequest) ProtoMessage()               {}
 func (*StartModuleRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
+
+func (m *StartModuleRequest) GetType() ModuleType {
+	if m != nil {
+		return m.Type
+	}
+	return ModuleType_GOBGP_LINK
+}
+
+func (m *StartModuleRequest) GetModuleId() string {
+	if m != nil {
+		return m.ModuleId
+	}
+	return ""
+}
 
 func (m *StartModuleRequest) GetGobgpLinkModule() *GoBGPLinkModule {
 	if m != nil {
@@ -261,6 +352,13 @@ func (m *StartModuleReply) String() string            { return proto.CompactText
 func (*StartModuleReply) ProtoMessage()               {}
 func (*StartModuleReply) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
 
+func (m *StartModuleReply) GetModuleId() string {
+	if m != nil {
+		return m.ModuleId
+	}
+	return ""
+}
+
 type StopModuleRequest struct {
 	ModuleId string `protobuf:"bytes,1,opt,name=module_id,json=moduleId" json:"module_id,omitempty"`
 }
@@ -269,6 +367,13 @@ func (m *StopModuleRequest) Reset()                    { *m = StopModuleRequest{
 func (m *StopModuleRequest) String() string            { return proto.CompactTextString(m) }
 func (*StopModuleRequest) ProtoMessage()               {}
 func (*StopModuleRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
+
+func (m *StopModuleRequest) GetModuleId() string {
+	if m != nil {
+		return m.ModuleId
+	}
+	return ""
+}
 
 type CassandraSession struct {
 	Username    string   `protobuf:"bytes,1,opt,name=username" json:"username,omitempty"`
@@ -281,6 +386,34 @@ func (m *CassandraSession) Reset()                    { *m = CassandraSession{} 
 func (m *CassandraSession) String() string            { return proto.CompactTextString(m) }
 func (*CassandraSession) ProtoMessage()               {}
 func (*CassandraSession) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
+
+func (m *CassandraSession) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *CassandraSession) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *CassandraSession) GetHosts() []string {
+	if m != nil {
+		return m.Hosts
+	}
+	return nil
+}
+
+func (m *CassandraSession) GetWorkerCount() uint32 {
+	if m != nil {
+		return m.WorkerCount
+	}
+	return 0
+}
 
 type CockroachSession struct {
 	Username    string   `protobuf:"bytes,1,opt,name=username" json:"username,omitempty"`
@@ -295,6 +428,41 @@ func (m *CockroachSession) String() string            { return proto.CompactText
 func (*CockroachSession) ProtoMessage()               {}
 func (*CockroachSession) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
 
+func (m *CockroachSession) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *CockroachSession) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *CockroachSession) GetHosts() []string {
+	if m != nil {
+		return m.Hosts
+	}
+	return nil
+}
+
+func (m *CockroachSession) GetWorkerCount() uint32 {
+	if m != nil {
+		return m.WorkerCount
+	}
+	return 0
+}
+
+func (m *CockroachSession) GetCertdir() string {
+	if m != nil {
+		return m.Certdir
+	}
+	return ""
+}
+
 type FileSession struct {
 	Filename string `protobuf:"bytes,1,opt,name=filename" json:"filename,omitempty"`
 }
@@ -303,6 +471,13 @@ func (m *FileSession) Reset()                    { *m = FileSession{} }
 func (m *FileSession) String() string            { return proto.CompactTextString(m) }
 func (*FileSession) ProtoMessage()               {}
 func (*FileSession) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{12} }
+
+func (m *FileSession) GetFilename() string {
+	if m != nil {
+		return m.Filename
+	}
+	return ""
+}
 
 //
 // Session Command Messages
@@ -315,6 +490,13 @@ func (m *CloseSessionRequest) String() string            { return proto.CompactT
 func (*CloseSessionRequest) ProtoMessage()               {}
 func (*CloseSessionRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{13} }
 
+func (m *CloseSessionRequest) GetSessionId() string {
+	if m != nil {
+		return m.SessionId
+	}
+	return ""
+}
+
 type ListSessionsReply struct {
 	SessionId []string `protobuf:"bytes,1,rep,name=session_id,json=sessionId" json:"session_id,omitempty"`
 }
@@ -323,6 +505,13 @@ func (m *ListSessionsReply) Reset()                    { *m = ListSessionsReply{
 func (m *ListSessionsReply) String() string            { return proto.CompactTextString(m) }
 func (*ListSessionsReply) ProtoMessage()               {}
 func (*ListSessionsReply) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{14} }
+
+func (m *ListSessionsReply) GetSessionId() []string {
+	if m != nil {
+		return m.SessionId
+	}
+	return nil
+}
 
 type OpenSessionRequest struct {
 	Type             SessionType       `protobuf:"varint,1,opt,name=type,enum=bgpmon.SessionType" json:"type,omitempty"`
@@ -336,6 +525,20 @@ func (m *OpenSessionRequest) Reset()                    { *m = OpenSessionReques
 func (m *OpenSessionRequest) String() string            { return proto.CompactTextString(m) }
 func (*OpenSessionRequest) ProtoMessage()               {}
 func (*OpenSessionRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{15} }
+
+func (m *OpenSessionRequest) GetType() SessionType {
+	if m != nil {
+		return m.Type
+	}
+	return SessionType_CASSANDRA
+}
+
+func (m *OpenSessionRequest) GetSessionId() string {
+	if m != nil {
+		return m.SessionId
+	}
+	return ""
+}
 
 func (m *OpenSessionRequest) GetCassandraSession() *CassandraSession {
 	if m != nil {
@@ -367,6 +570,13 @@ func (m *OpenSessionReply) String() string            { return proto.CompactText
 func (*OpenSessionReply) ProtoMessage()               {}
 func (*OpenSessionReply) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{16} }
 
+func (m *OpenSessionReply) GetSessionId() string {
+	if m != nil {
+		return m.SessionId
+	}
+	return ""
+}
+
 //
 // Write Messages
 type WriteRequest struct {
@@ -383,6 +593,20 @@ func (m *WriteRequest) Reset()                    { *m = WriteRequest{} }
 func (m *WriteRequest) String() string            { return proto.CompactTextString(m) }
 func (*WriteRequest) ProtoMessage()               {}
 func (*WriteRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{17} }
+
+func (m *WriteRequest) GetType() WriteRequest_Type {
+	if m != nil {
+		return m.Type
+	}
+	return WriteRequest_AS_NUMBER_LOCATION
+}
+
+func (m *WriteRequest) GetSessionId() string {
+	if m != nil {
+		return m.SessionId
+	}
+	return ""
+}
 
 func (m *WriteRequest) GetAsNumberLocation() *ASNumberLocation {
 	if m != nil {
@@ -431,11 +655,32 @@ func (m *ASNumberLocation) String() string            { return proto.CompactText
 func (*ASNumberLocation) ProtoMessage()               {}
 func (*ASNumberLocation) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{18} }
 
+func (m *ASNumberLocation) GetAsNumber() uint32 {
+	if m != nil {
+		return m.AsNumber
+	}
+	return 0
+}
+
+func (m *ASNumberLocation) GetMeasureDate() string {
+	if m != nil {
+		return m.MeasureDate
+	}
+	return ""
+}
+
 func (m *ASNumberLocation) GetLocation() *Location {
 	if m != nil {
 		return m.Location
 	}
 	return nil
+}
+
+func (m *ASNumberLocation) GetSource() string {
+	if m != nil {
+		return m.Source
+	}
+	return ""
 }
 
 // XXX phase this out
@@ -455,6 +700,55 @@ func (m *BGPUpdateMessage) Reset()                    { *m = BGPUpdateMessage{} 
 func (m *BGPUpdateMessage) String() string            { return proto.CompactTextString(m) }
 func (*BGPUpdateMessage) ProtoMessage()               {}
 func (*BGPUpdateMessage) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{19} }
+
+func (m *BGPUpdateMessage) GetTimestamp() int64 {
+	if m != nil {
+		return m.Timestamp
+	}
+	return 0
+}
+
+func (m *BGPUpdateMessage) GetCollectorIpAddress() string {
+	if m != nil {
+		return m.CollectorIpAddress
+	}
+	return ""
+}
+
+func (m *BGPUpdateMessage) GetCollectorMacAddress() string {
+	if m != nil {
+		return m.CollectorMacAddress
+	}
+	return ""
+}
+
+func (m *BGPUpdateMessage) GetCollectorPort() uint32 {
+	if m != nil {
+		return m.CollectorPort
+	}
+	return 0
+}
+
+func (m *BGPUpdateMessage) GetPeerIpAddress() string {
+	if m != nil {
+		return m.PeerIpAddress
+	}
+	return ""
+}
+
+func (m *BGPUpdateMessage) GetAsPath() []uint32 {
+	if m != nil {
+		return m.AsPath
+	}
+	return nil
+}
+
+func (m *BGPUpdateMessage) GetNextHop() string {
+	if m != nil {
+		return m.NextHop
+	}
+	return ""
+}
 
 func (m *BGPUpdateMessage) GetAdvertisedPrefixes() []*IPPrefix {
 	if m != nil {
@@ -489,6 +783,41 @@ func (m *BGPCapture) String() string            { return proto.CompactTextString
 func (*BGPCapture) ProtoMessage()               {}
 func (*BGPCapture) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{20} }
 
+func (m *BGPCapture) GetTimestamp() uint32 {
+	if m != nil {
+		return m.Timestamp
+	}
+	return 0
+}
+
+func (m *BGPCapture) GetPeerAs() uint32 {
+	if m != nil {
+		return m.PeerAs
+	}
+	return 0
+}
+
+func (m *BGPCapture) GetLocalAs() uint32 {
+	if m != nil {
+		return m.LocalAs
+	}
+	return 0
+}
+
+func (m *BGPCapture) GetInterfaceIndex() uint32 {
+	if m != nil {
+		return m.InterfaceIndex
+	}
+	return 0
+}
+
+func (m *BGPCapture) GetAddressFamily() uint32 {
+	if m != nil {
+		return m.AddressFamily
+	}
+	return 0
+}
+
 func (m *BGPCapture) GetPeerIp() *common.IPAddressWrapper {
 	if m != nil {
 		return m.PeerIp
@@ -522,11 +851,32 @@ func (m *IPAddressLocation) String() string            { return proto.CompactTex
 func (*IPAddressLocation) ProtoMessage()               {}
 func (*IPAddressLocation) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{21} }
 
+func (m *IPAddressLocation) GetIpAddress() string {
+	if m != nil {
+		return m.IpAddress
+	}
+	return ""
+}
+
+func (m *IPAddressLocation) GetMeasureDate() string {
+	if m != nil {
+		return m.MeasureDate
+	}
+	return ""
+}
+
 func (m *IPAddressLocation) GetLocation() *Location {
 	if m != nil {
 		return m.Location
 	}
 	return nil
+}
+
+func (m *IPAddressLocation) GetSource() string {
+	if m != nil {
+		return m.Source
+	}
+	return ""
 }
 
 type IPPrefix struct {
@@ -538,6 +888,20 @@ func (m *IPPrefix) Reset()                    { *m = IPPrefix{} }
 func (m *IPPrefix) String() string            { return proto.CompactTextString(m) }
 func (*IPPrefix) ProtoMessage()               {}
 func (*IPPrefix) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{22} }
+
+func (m *IPPrefix) GetPrefixIpAddress() string {
+	if m != nil {
+		return m.PrefixIpAddress
+	}
+	return ""
+}
+
+func (m *IPPrefix) GetPrefixMask() uint32 {
+	if m != nil {
+		return m.PrefixMask
+	}
+	return 0
+}
 
 type Location struct {
 	CountryCode string  `protobuf:"bytes,1,opt,name=country_code,json=countryCode" json:"country_code,omitempty"`
@@ -551,6 +915,41 @@ func (m *Location) Reset()                    { *m = Location{} }
 func (m *Location) String() string            { return proto.CompactTextString(m) }
 func (*Location) ProtoMessage()               {}
 func (*Location) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{23} }
+
+func (m *Location) GetCountryCode() string {
+	if m != nil {
+		return m.CountryCode
+	}
+	return ""
+}
+
+func (m *Location) GetStateCode() string {
+	if m != nil {
+		return m.StateCode
+	}
+	return ""
+}
+
+func (m *Location) GetCity() string {
+	if m != nil {
+		return m.City
+	}
+	return ""
+}
+
+func (m *Location) GetLatitude() float64 {
+	if m != nil {
+		return m.Latitude
+	}
+	return 0
+}
+
+func (m *Location) GetLongitude() float64 {
+	if m != nil {
+		return m.Longitude
+	}
+	return 0
+}
 
 type PrefixLocation struct {
 	Prefix      *IPPrefix `protobuf:"bytes,1,opt,name=prefix" json:"prefix,omitempty"`
@@ -571,11 +970,25 @@ func (m *PrefixLocation) GetPrefix() *IPPrefix {
 	return nil
 }
 
+func (m *PrefixLocation) GetMeasureDate() string {
+	if m != nil {
+		return m.MeasureDate
+	}
+	return ""
+}
+
 func (m *PrefixLocation) GetLocation() *Location {
 	if m != nil {
 		return m.Location
 	}
 	return nil
+}
+
+func (m *PrefixLocation) GetSource() string {
+	if m != nil {
+		return m.Source
+	}
+	return ""
 }
 
 func init() {
@@ -615,7 +1028,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for Bgpmond service
 
@@ -944,7 +1357,7 @@ var _Bgpmond_serviceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: fileDescriptor0,
+	Metadata: "github.com/CSUNetSec/netsec-protobufs/bgpmon/bgpmon.proto",
 }
 
 func init() {

@@ -68,6 +68,20 @@ func (m *IPAddressWrapper) String() string            { return proto.CompactText
 func (*IPAddressWrapper) ProtoMessage()               {}
 func (*IPAddressWrapper) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+func (m *IPAddressWrapper) GetIpv4() []byte {
+	if m != nil {
+		return m.Ipv4
+	}
+	return nil
+}
+
+func (m *IPAddressWrapper) GetIpv6() []byte {
+	if m != nil {
+		return m.Ipv6
+	}
+	return nil
+}
+
 type PrefixWrapper struct {
 	// both are really required
 	Prefix *IPAddressWrapper `protobuf:"bytes,1,opt,name=prefix" json:"prefix,omitempty"`
@@ -84,6 +98,13 @@ func (m *PrefixWrapper) GetPrefix() *IPAddressWrapper {
 		return m.Prefix
 	}
 	return nil
+}
+
+func (m *PrefixWrapper) GetMask() uint32 {
+	if m != nil {
+		return m.Mask
+	}
+	return 0
 }
 
 // We try to keep as much state about the file that we convert as we
@@ -143,9 +164,65 @@ func (m *CaptureSpec) String() string            { return proto.CompactTextStrin
 func (*CaptureSpec) ProtoMessage()               {}
 func (*CaptureSpec) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
 
+func (m *CaptureSpec) GetCaptureSpecId() int32 {
+	if m != nil {
+		return m.CaptureSpecId
+	}
+	return 0
+}
+
+func (m *CaptureSpec) GetVerboseDebugId() []byte {
+	if m != nil {
+		return m.VerboseDebugId
+	}
+	return nil
+}
+
+func (m *CaptureSpec) GetType() CaptureSpec_Type {
+	if m != nil {
+		return m.Type
+	}
+	return CaptureSpec_FLOW
+}
+
+func (m *CaptureSpec) GetTcpdumpExpression() string {
+	if m != nil {
+		return m.TcpdumpExpression
+	}
+	return ""
+}
+
+func (m *CaptureSpec) GetCaptureLocation() string {
+	if m != nil {
+		return m.CaptureLocation
+	}
+	return ""
+}
+
 func (m *CaptureSpec) GetCaptureLocationIp() *IPAddressWrapper {
 	if m != nil {
 		return m.CaptureLocationIp
+	}
+	return nil
+}
+
+func (m *CaptureSpec) GetCaptureLocationDns() string {
+	if m != nil {
+		return m.CaptureLocationDns
+	}
+	return ""
+}
+
+func (m *CaptureSpec) GetCaptureNodeSpec() string {
+	if m != nil {
+		return m.CaptureNodeSpec
+	}
+	return ""
+}
+
+func (m *CaptureSpec) GetCaptureNodeInterface() []string {
+	if m != nil {
+		return m.CaptureNodeInterface
 	}
 	return nil
 }
@@ -155,6 +232,34 @@ func (m *CaptureSpec) GetPtpPeer() *IPAddressWrapper {
 		return m.PtpPeer
 	}
 	return nil
+}
+
+func (m *CaptureSpec) GetStorageHost() []string {
+	if m != nil {
+		return m.StorageHost
+	}
+	return nil
+}
+
+func (m *CaptureSpec) GetPathToFiles() []string {
+	if m != nil {
+		return m.PathToFiles
+	}
+	return nil
+}
+
+func (m *CaptureSpec) GetFilePattern() []string {
+	if m != nil {
+		return m.FilePattern
+	}
+	return nil
+}
+
+func (m *CaptureSpec) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
 }
 
 func init() {

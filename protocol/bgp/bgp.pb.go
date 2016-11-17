@@ -156,6 +156,34 @@ func (m *MrtHeader) String() string            { return proto.CompactTextString(
 func (*MrtHeader) ProtoMessage()               {}
 func (*MrtHeader) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
+func (m *MrtHeader) GetTimestamp() uint32 {
+	if m != nil {
+		return m.Timestamp
+	}
+	return 0
+}
+
+func (m *MrtHeader) GetType() uint32 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
+
+func (m *MrtHeader) GetSubtype() uint32 {
+	if m != nil {
+		return m.Subtype
+	}
+	return 0
+}
+
+func (m *MrtHeader) GetLen() uint32 {
+	if m != nil {
+		return m.Len
+	}
+	return 0
+}
+
 type MrtBody struct {
 	BGP4MPHeader *BGP4MPHeader `protobuf:"bytes,1,opt,name=BGP4MPHeader" json:"BGP4MPHeader,omitempty"`
 	BGPMessage   []byte        `protobuf:"bytes,2,opt,name=BGPMessage,proto3" json:"BGPMessage,omitempty"`
@@ -169,6 +197,13 @@ func (*MrtBody) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} 
 func (m *MrtBody) GetBGP4MPHeader() *BGP4MPHeader {
 	if m != nil {
 		return m.BGP4MPHeader
+	}
+	return nil
+}
+
+func (m *MrtBody) GetBGPMessage() []byte {
+	if m != nil {
+		return m.BGPMessage
 	}
 	return nil
 }
@@ -188,6 +223,34 @@ func (m *BGP4MPHeader) String() string            { return proto.CompactTextStri
 func (*BGP4MPHeader) ProtoMessage()               {}
 func (*BGP4MPHeader) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
+func (m *BGP4MPHeader) GetPeerAs() uint32 {
+	if m != nil {
+		return m.PeerAs
+	}
+	return 0
+}
+
+func (m *BGP4MPHeader) GetLocalAs() uint32 {
+	if m != nil {
+		return m.LocalAs
+	}
+	return 0
+}
+
+func (m *BGP4MPHeader) GetInterfaceIndex() uint32 {
+	if m != nil {
+		return m.InterfaceIndex
+	}
+	return 0
+}
+
+func (m *BGP4MPHeader) GetAddressFamily() uint32 {
+	if m != nil {
+		return m.AddressFamily
+	}
+	return 0
+}
+
 func (m *BGP4MPHeader) GetPeerIp() *common.IPAddressWrapper {
 	if m != nil {
 		return m.PeerIp
@@ -200,6 +263,13 @@ func (m *BGP4MPHeader) GetLocalIp() *common.IPAddressWrapper {
 		return m.LocalIp
 	}
 	return nil
+}
+
+func (m *BGP4MPHeader) GetIsAs4() bool {
+	if m != nil {
+		return m.IsAs4
+	}
+	return false
 }
 
 type BGPHeader struct {
@@ -215,6 +285,27 @@ func (m *BGPHeader) Reset()                    { *m = BGPHeader{} }
 func (m *BGPHeader) String() string            { return proto.CompactTextString(m) }
 func (*BGPHeader) ProtoMessage()               {}
 func (*BGPHeader) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+func (m *BGPHeader) GetMarker() []byte {
+	if m != nil {
+		return m.Marker
+	}
+	return nil
+}
+
+func (m *BGPHeader) GetLength() uint32 {
+	if m != nil {
+		return m.Length
+	}
+	return 0
+}
+
+func (m *BGPHeader) GetType() uint32 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
 
 type BGPUpdate struct {
 	// a message can contain only Advertized routes,
@@ -262,6 +353,20 @@ func (m *BGPUpdate_ASPathSegment) String() string            { return proto.Comp
 func (*BGPUpdate_ASPathSegment) ProtoMessage()               {}
 func (*BGPUpdate_ASPathSegment) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5, 0} }
 
+func (m *BGPUpdate_ASPathSegment) GetAsSet() []uint32 {
+	if m != nil {
+		return m.AsSet
+	}
+	return nil
+}
+
+func (m *BGPUpdate_ASPathSegment) GetAsSeq() []uint32 {
+	if m != nil {
+		return m.AsSeq
+	}
+	return nil
+}
+
 // if this is populated then all the attrs in it are RFC-mandatory,
 // so required.
 type BGPUpdate_AdvertizedRoutes struct {
@@ -290,6 +395,13 @@ func (m *BGPUpdate_Aggregator) String() string            { return proto.Compact
 func (*BGPUpdate_Aggregator) ProtoMessage()               {}
 func (*BGPUpdate_Aggregator) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5, 2} }
 
+func (m *BGPUpdate_Aggregator) GetAs() uint32 {
+	if m != nil {
+		return m.As
+	}
+	return 0
+}
+
 func (m *BGPUpdate_Aggregator) GetIp() *common.IPAddressWrapper {
 	if m != nil {
 		return m.Ip
@@ -308,6 +420,20 @@ func (m *BGPUpdate_Community) Reset()                    { *m = BGPUpdate_Commun
 func (m *BGPUpdate_Community) String() string            { return proto.CompactTextString(m) }
 func (*BGPUpdate_Community) ProtoMessage()               {}
 func (*BGPUpdate_Community) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5, 3} }
+
+func (m *BGPUpdate_Community) GetCommunity() []byte {
+	if m != nil {
+		return m.Community
+	}
+	return nil
+}
+
+func (m *BGPUpdate_Community) GetExtendedCommunity() []byte {
+	if m != nil {
+		return m.ExtendedCommunity
+	}
+	return nil
+}
 
 type BGPUpdate_Communities struct {
 	Communities []*BGPUpdate_Community `protobuf:"bytes,1,rep,name=communities" json:"communities,omitempty"`
@@ -346,6 +472,41 @@ func (m *BGPUpdate_Attributes) String() string            { return proto.Compact
 func (*BGPUpdate_Attributes) ProtoMessage()               {}
 func (*BGPUpdate_Attributes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5, 5} }
 
+func (m *BGPUpdate_Attributes) GetOptionalBit() bool {
+	if m != nil {
+		return m.OptionalBit
+	}
+	return false
+}
+
+func (m *BGPUpdate_Attributes) GetTransitiveBit() bool {
+	if m != nil {
+		return m.TransitiveBit
+	}
+	return false
+}
+
+func (m *BGPUpdate_Attributes) GetPartialBit() bool {
+	if m != nil {
+		return m.PartialBit
+	}
+	return false
+}
+
+func (m *BGPUpdate_Attributes) GetExtendedBit() bool {
+	if m != nil {
+		return m.ExtendedBit
+	}
+	return false
+}
+
+func (m *BGPUpdate_Attributes) GetOrigin() BGPUpdate_Attributes_Origin {
+	if m != nil {
+		return m.Origin
+	}
+	return BGPUpdate_Attributes_IGP
+}
+
 func (m *BGPUpdate_Attributes) GetAsPath() []*BGPUpdate_ASPathSegment {
 	if m != nil {
 		return m.AsPath
@@ -360,6 +521,20 @@ func (m *BGPUpdate_Attributes) GetNextHop() *common.IPAddressWrapper {
 	return nil
 }
 
+func (m *BGPUpdate_Attributes) GetMultiExit() uint32 {
+	if m != nil {
+		return m.MultiExit
+	}
+	return 0
+}
+
+func (m *BGPUpdate_Attributes) GetLocalPref() uint32 {
+	if m != nil {
+		return m.LocalPref
+	}
+	return 0
+}
+
 func (m *BGPUpdate_Attributes) GetAggregator() *BGPUpdate_Aggregator {
 	if m != nil {
 		return m.Aggregator
@@ -370,6 +545,20 @@ func (m *BGPUpdate_Attributes) GetAggregator() *BGPUpdate_Aggregator {
 func (m *BGPUpdate_Attributes) GetCommunities() *BGPUpdate_Communities {
 	if m != nil {
 		return m.Communities
+	}
+	return nil
+}
+
+func (m *BGPUpdate_Attributes) GetAtomicAggregate() bool {
+	if m != nil {
+		return m.AtomicAggregate
+	}
+	return false
+}
+
+func (m *BGPUpdate_Attributes) GetTypes() []BGPUpdate_Attributes_Type {
+	if m != nil {
+		return m.Types
 	}
 	return nil
 }
