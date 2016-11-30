@@ -26,6 +26,7 @@ enum ModuleType {
 	GOBGP_LINK = 0;
 	PREFIX_BY_AS_NUMBER = 1;
 	PREFIX_HIJACK = 2;
+    COCKROACH_PREFIX_HIJACK = 3;
 }
 
 message GoBGPLinkModule {
