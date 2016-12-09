@@ -97,8 +97,9 @@ message CockroachSession {
 	string username = 1;
 	string password = 2;
 	repeated string hosts = 3;
-	uint32 workerCount = 4;
-	string certdir = 5;
+    uint32 port = 4;
+	uint32 workerCount = 5;
+	string certdir = 6;
 }
 
 message FileSession {
