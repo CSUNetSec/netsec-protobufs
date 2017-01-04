@@ -43,8 +43,8 @@ message PrefixHijackModule {
 	int32 periodic_seconds = 1;
 	int32 timeout_seconds = 2;
 	repeated string in_session_id = 3;
-	int64 start_time = 4;
-	int64 end_time = 5;
+	int64 start_time_seconds_from_epoch = 4;
+	int64 lookback_duration_seconds = 5;
 }
 
 /*
