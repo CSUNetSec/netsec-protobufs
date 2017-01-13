@@ -141,6 +141,7 @@ message WriteRequest {
 		IP_ADDRESS_LOCATION = 2;
 		PREFIX_LOCATION = 3;
 		BGP_CAPTURE = 4;
+        PREFIX_ADVERTISEMENT_COUNT = 5;
 	}
 
 	Type type = 1;
@@ -150,6 +151,7 @@ message WriteRequest {
 	IPAddressLocation ip_address_location = 5;
 	PrefixLocation prefix_location = 6;
 	BGPCapture bgp_capture = 7;
+    PrefixAdvertisementCount prefix_advertisement_count = 8;
 }
 
 message ASNumberLocation {
@@ -209,6 +211,14 @@ message Location {
 	string city = 3;
 	double latitude = 4;
 	double longitude = 5;
+}
+
+message PrefixAdvertisementCount {
+    uint32 timestamp = 1;
+    common.IPAddressWrapper collector_ip = 2;
+    uint32 as_number = 3;
+    common.PrefixWrapper prefix = 4;
+    uint32 count = 5;    
 }
 
 message PrefixLocation {
