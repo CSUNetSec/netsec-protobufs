@@ -221,6 +221,19 @@ message PrefixAdvertisementCount {
     uint32 count = 5;    
 }
 
+message Count {
+	map<string, uint32> count = 1;
+}
+
+message BGPStats {
+	string collector_ip = 1;
+	uint64 timeStartSecEpoch = 2; //in seconds from epoch
+	uint32 durationSec = 3;
+	Count msgCounts = 4; //count type to number
+	map<string,Count> destAsToPrefixCounts= 5;
+	map<string,Count> destAsToASPCounts = 6;
+}
+
 message PrefixLocation {
 	IPPrefix prefix = 1;
 	string measure_date = 2;
