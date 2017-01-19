@@ -141,7 +141,7 @@ message WriteRequest {
 		IP_ADDRESS_LOCATION = 2;
 		PREFIX_LOCATION = 3;
 		BGP_CAPTURE = 4;
-        PREFIX_ADVERTISEMENT_COUNT = 5;
+        	BGP_STATS = 5;
 	}
 
 	Type type = 1;
@@ -151,7 +151,7 @@ message WriteRequest {
 	IPAddressLocation ip_address_location = 5;
 	PrefixLocation prefix_location = 6;
 	BGPCapture bgp_capture = 7;
-    	BGPStats stats = 8;
+    	BGPStats  bgp_stats = 8;
 }
 
 message ASNumberLocation {
