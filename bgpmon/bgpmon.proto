@@ -138,7 +138,6 @@ message OpenSessionReply {
 message WriteRequest {
 	enum Type {
 		AS_NUMBER_LOCATION = 0;
-		BGP_UPDATE = 1;
 		IP_ADDRESS_LOCATION = 2;
 		PREFIX_LOCATION = 3;
 		BGP_CAPTURE = 4;
@@ -148,11 +147,32 @@ message WriteRequest {
 	Type type = 1;
 	string session_id = 2;
 	ASNumberLocation as_number_location = 3;
-	BGPUpdateMessage bgp_update_message = 4;
 	IPAddressLocation ip_address_location = 5;
 	PrefixLocation prefix_location = 6;
 	BGPCapture bgp_capture = 7;
     	BGPStats  bgp_stats = 8;
+}
+
+/*
+ * Get Messages
+ */
+message GetRequest {
+	enum Type {
+		BGP_CAPTURE = 0;
+	}
+	Type type = 1;
+	string session_id = 2;
+	string start_timestamp = 3;
+	string end_timestamp = 4;
+}
+
+message GetReply {
+	enum Type {
+		BGP_CAPTURE = 0;
+	}
+	Type type = 1;
+	repeated BGPCapture captures = 2;
+	string collection_id = 3;
 }
 
 message ASNumberLocation {
