@@ -14,6 +14,7 @@ service Bgpmond {
 	rpc StopModule(StopModuleRequest) returns (Empty) {}
 	rpc OpenSession(OpenSessionRequest) returns (OpenSessionReply) {}
 	rpc Write(stream WriteRequest) returns (Empty) {}
+	rpc Get(GetRequest) returns (stream GetReply) {}
 }
 
 message Empty {
@@ -99,7 +100,7 @@ message CockroachSession {
 	string username = 1;
 	string password = 2;
 	repeated string hosts = 3;
-    uint32 port = 4;
+        uint32 port = 4;
 	uint32 workerCount = 5;
 	string certdir = 6;
 }
@@ -159,21 +160,6 @@ message ASNumberLocation {
 	string measure_date = 2;
 	Location location = 3;
 	string source = 4;
-}
-
-//XXX phase this out
-message BGPUpdateMessage {
-	int64 timestamp = 1;
-	string collector_ip_address = 2;
-	string collector_mac_address = 3;
-	uint32 collector_port = 4;
-	string peer_ip_address = 5;
-
-	repeated uint32 as_path = 6;
-	string next_hop = 9;
-
-	repeated IPPrefix advertised_prefixes = 7;
-	repeated IPPrefix withdrawn_prefixes = 8;
 }
 
 // a message of Capture type to facilitate the represtation of a
