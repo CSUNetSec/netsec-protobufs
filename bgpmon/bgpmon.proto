@@ -86,6 +86,7 @@ enum SessionType {
 	CASSANDRA = 0;
 	FILE = 1;
 	COCKROACH = 2;
+	SQLITE = 3;
 }
 
 message CassandraSession {
@@ -108,6 +109,10 @@ message FileSession {
 	string filename = 1;
 }
 
+message SqliteSession {
+	string filename = 1;
+}
+
 /*
  * Session Command Messages 
  */
@@ -125,6 +130,7 @@ message OpenSessionRequest {
 	CassandraSession cassandra_session = 3;
 	FileSession file_session = 4;
 	CockroachSession cockroach_session = 5;
+	SqliteSession sqlite_session = 6;
 }
 
 message OpenSessionReply {
