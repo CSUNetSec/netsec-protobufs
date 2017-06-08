@@ -184,42 +184,6 @@ func (x GetReply_Type) String() string {
 }
 func (GetReply_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{20, 0} }
 
-type GetRequest_Type int32
-
-const (
-	GetRequest_BGP_CAPTURE GetRequest_Type = 0
-)
-
-var GetRequest_Type_name = map[int32]string{
-	0: "BGP_CAPTURE",
-}
-var GetRequest_Type_value = map[string]int32{
-	"BGP_CAPTURE": 0,
-}
-
-func (x GetRequest_Type) String() string {
-	return proto.EnumName(GetRequest_Type_name, int32(x))
-}
-func (GetRequest_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{18, 0} }
-
-type GetReply_Type int32
-
-const (
-	GetReply_BGP_CAPTURE GetReply_Type = 0
-)
-
-var GetReply_Type_name = map[int32]string{
-	0: "BGP_CAPTURE",
-}
-var GetReply_Type_value = map[string]int32{
-	"BGP_CAPTURE": 0,
-}
-
-func (x GetReply_Type) String() string {
-	return proto.EnumName(GetReply_Type_name, int32(x))
-}
-func (GetReply_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{19, 0} }
-
 type Empty struct {
 }
 
