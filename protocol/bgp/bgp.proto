@@ -21,10 +21,35 @@ message MrtHeader {
 }
 
 message MrtBody {
-  // maximal field value = 2
+  // maximal field value = 3
 
   BGP4MPHeader BGP4MPHeader = 1;
   bytes BGPMessage = 2;
+  RIB rib = 3;
+}
+
+message RIB {
+  // maximal field value = 2
+
+  repeated PeerEntry peerEntry = 1;
+  repeated RIBEntry routeEntry = 2;
+}
+
+message PeerEntry {
+  //maximal field value = 3 
+
+  common.IPAddressWrapper peer_ip = 1;
+  uint32 peer_as = 2;
+  uint32 peer_id = 3;
+}
+
+message RIBEntry {
+  //maximal field value = 4 
+
+  common.PrefixWrapper prefix = 1;
+  uint32 timestamp = 2;
+  uint32 peer_index = 3;
+  BGPUpdate.Attributes attrs = 4;
 }
 
 message BGP4MPHeader {
