@@ -118,7 +118,9 @@ message BGPUpdate {
   }
 
   message Attributes {
-    // maximal field value = 13 
+    //maximal field value = 13 
+    //https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-parameters-2
+    //non deprecated as of 01/2018
     enum Type {
       UNKNOWN = 0;
       ORIGIN = 1;
@@ -129,11 +131,23 @@ message BGPUpdate {
       ATOMIC_AGGREGATE = 6;
       AGGREGATOR = 7;
       COMMUNITY = 8;
+      ORIGINATOR_ID = 9;
+      CLUSTER_LIST = 10;
       MP_REACH_NLRI = 14;
       MP_UNREACH_NLRI = 15;
       EXTENDED_COMMUNITY = 16;
       AS4_PATH = 17;
       AS4_AGGREGATOR = 18;
+      PMSI_TUNNEL = 22;
+      TUNNEL_ENCAPSULATION_ATTRIBUTE = 23;
+      TRAFFIC_ENGINEERING = 24;
+      IPV6_ADDRESS_SPECIFIC_EXTENDED_COMMUNITY = 25;
+      AIGP = 26;
+      PE_DISTINGUISHER_LABELS = 27;
+      BGP_LS_ATTRIBUTE = 29;
+      LARGE_COMMUNITY = 32;
+      BGPSEC_PATH = 33;
+      ATTR_SET = 128;
     }
  
     bool optional_bit = 1;
