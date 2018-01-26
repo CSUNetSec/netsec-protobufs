@@ -9,7 +9,7 @@ service Bgpmond {
 	rpc CloseSession(CloseSessionRequest) returns (Empty) {}
 	rpc ListModules(Empty) returns (ListModulesReply) {}
 	rpc ListSessions(Empty) returns (ListSessionsReply) {}
-	rpc RunModule(RunModuleRequest)returns (RunModuleReply) {}
+	rpc RunModule(RunModuleRequest) returns (RunModuleReply) {}
 	rpc StartModule(StartModuleRequest) returns (StartModuleReply) {}
 	rpc StopModule(StopModuleRequest) returns (Empty) {}
 	rpc OpenSession(OpenSessionRequest) returns (OpenSessionReply) {}
@@ -24,11 +24,12 @@ message Empty {
  * Module Messages
  */
 enum ModuleType {
-	//maximal field value = 2
+	//maximal field value = 3
 
 	GOBGP_LINK = 0;
 	PREFIX_BY_AS_NUMBER = 1;
 	PREFIX_HIJACK = 2;
+	LOOKING_GLASS = 3;
 }
 
 message GoBGPLinkModule {
@@ -44,6 +45,16 @@ message PrefixByAsNumberModule {
 	int64 start_time = 1;
 	int64 end_time = 2;
 	repeated string in_session_id = 3;
+}
+
+message LookingGlassModule {
+	// maximal field value = 5
+
+	int64 start_time = 1;
+	int64 end_time = 2;
+	repeated string prefixes = 3;
+	repeated int32 asns = 4;
+	repeated string peers = 5;
 }
 
 message PrefixHijackModule {
@@ -66,11 +77,12 @@ message ListModulesReply {
 }
 
 message RunModuleRequest {
-	//maximal field value = 3
+	//maximal field value = 4
 
 	ModuleType type = 1;
 	PrefixByAsNumberModule prefix_by_as_number_module = 2;
 	PrefixHijackModule prefix_hijack_module = 3;
+	LookingGlassModule looking_glass_module = 4;
 }
 
 message RunModuleReply {
@@ -140,7 +152,7 @@ message FileSession {
 message SqliteSession {
 	//maximal field value = 1
 
-       string filename = 1;
+        string filename = 1;
 }
 
 /*
