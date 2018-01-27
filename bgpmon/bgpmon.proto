@@ -48,13 +48,14 @@ message PrefixByAsNumberModule {
 }
 
 message LookingGlassModule {
-	// maximal field value = 5
+	// maximal field value = 6
 
 	int64 start_time = 1;
 	int64 end_time = 2;
 	repeated string prefixes = 3;
-	repeated int32 asns = 4;
+	repeated uint32 asns = 4;
 	repeated string peers = 5;
+	repeated string session_id = 6;
 }
 
 message PrefixHijackModule {
