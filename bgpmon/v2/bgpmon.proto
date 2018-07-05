@@ -3,7 +3,7 @@ syntax = "proto3";
 import "github.com/CSUNetSec/netsec-protobufs/common/common.proto";
 import "github.com/CSUNetSec/netsec-protobufs/protocol/bgp/bgp.proto";
 
-package bgpmon;
+package bgpmonv2;
 
 service Bgpmond {
 	rpc CloseSession(CloseSessionRequest) returns (Empty) {}
