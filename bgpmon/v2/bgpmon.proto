@@ -10,7 +10,7 @@ service Bgpmond {
 	rpc ListOpenSessions(Empty) returns (ListOpenSessionsReply) {}
 	rpc ListAvailableSessions(Empty) returns (ListAvailableSessionsReply) {}
 	rpc OpenSession(OpenSessionRequest) returns (OpenSessionReply) {}
-	rpc Write(stream WriteRequest) returns (Empty) {}
+	rpc Write(stream WriteRequest) returns (WriteReply) {}
 	rpc Get(GetRequest) returns (stream GetReply) {}
 }
 
@@ -77,6 +77,14 @@ message WriteRequest {
 	Type type = 1;
 	string session_id = 2;
 	BGPCapture bgp_capture = 3;
+}
+
+message WriteReply {
+	uint64 totalMessages = 1;
+	uint64 startTime = 2;
+	uint64 endTime = 3;
+	uint32 numWorkers = 4;
+	string error = 5;
 }
 
 /*
