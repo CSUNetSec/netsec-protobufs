@@ -110,6 +110,7 @@ message GetReply {
 	}
 	Type type = 1;
 	repeated BGPCapture captures = 2;
+	string error = 3;
 }
 
 // a message of Capture type to facilitate the represtation of a
