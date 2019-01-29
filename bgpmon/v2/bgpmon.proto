@@ -12,6 +12,7 @@ service Bgpmond {
 	rpc OpenSession(OpenSessionRequest) returns (OpenSessionReply) {}
 	rpc Write(stream WriteRequest) returns (WriteReply) {}
 	rpc Get(GetRequest) returns (stream GetReply) {}
+    rpc GetSessionInfo(SessionInfoRequest) returns (SessionInfoReply) {}
 }
 
 message Empty {
@@ -27,6 +28,20 @@ message SessionType {
 	string name = 1;
 	string type = 2;
 	string desc = 3;
+}
+
+message SessionInfoRequest {
+    //maximal field value = 1
+
+    string session_id = 1;
+}
+
+message SessionInfoReply {
+    //maximal field value = 3
+
+    SessionType type = 1;
+    string session_id = 2;
+    uint32 workers = 3;
 }
 
 message ListAvailableSessionsReply {
