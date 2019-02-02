@@ -3,11 +3,9 @@
 
 package common
 
-import (
-	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"
-	math "math"
-)
+import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -18,7 +16,7 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 //
 // Capture specification
@@ -36,7 +34,6 @@ var CaptureSpec_Type_name = map[int32]string{
 	1: "BGP_MRT",
 	2: "BGP_LIVE",
 }
-
 var CaptureSpec_Type_value = map[string]int32{
 	"FLOW":     0,
 	"BGP_MRT":  1,
@@ -46,9 +43,8 @@ var CaptureSpec_Type_value = map[string]int32{
 func (x CaptureSpec_Type) String() string {
 	return proto.EnumName(CaptureSpec_Type_name, int32(x))
 }
-
 func (CaptureSpec_Type) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_20cff418fddf53fb, []int{2, 0}
+	return fileDescriptor_common_0e8a8744c3d3391a, []int{2, 0}
 }
 
 type IPAddressWrapper struct {
@@ -64,17 +60,16 @@ func (m *IPAddressWrapper) Reset()         { *m = IPAddressWrapper{} }
 func (m *IPAddressWrapper) String() string { return proto.CompactTextString(m) }
 func (*IPAddressWrapper) ProtoMessage()    {}
 func (*IPAddressWrapper) Descriptor() ([]byte, []int) {
-	return fileDescriptor_20cff418fddf53fb, []int{0}
+	return fileDescriptor_common_0e8a8744c3d3391a, []int{0}
 }
-
 func (m *IPAddressWrapper) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_IPAddressWrapper.Unmarshal(m, b)
 }
 func (m *IPAddressWrapper) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_IPAddressWrapper.Marshal(b, m, deterministic)
 }
-func (m *IPAddressWrapper) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IPAddressWrapper.Merge(m, src)
+func (dst *IPAddressWrapper) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IPAddressWrapper.Merge(dst, src)
 }
 func (m *IPAddressWrapper) XXX_Size() int {
 	return xxx_messageInfo_IPAddressWrapper.Size(m)
@@ -112,17 +107,16 @@ func (m *PrefixWrapper) Reset()         { *m = PrefixWrapper{} }
 func (m *PrefixWrapper) String() string { return proto.CompactTextString(m) }
 func (*PrefixWrapper) ProtoMessage()    {}
 func (*PrefixWrapper) Descriptor() ([]byte, []int) {
-	return fileDescriptor_20cff418fddf53fb, []int{1}
+	return fileDescriptor_common_0e8a8744c3d3391a, []int{1}
 }
-
 func (m *PrefixWrapper) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PrefixWrapper.Unmarshal(m, b)
 }
 func (m *PrefixWrapper) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PrefixWrapper.Marshal(b, m, deterministic)
 }
-func (m *PrefixWrapper) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PrefixWrapper.Merge(m, src)
+func (dst *PrefixWrapper) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PrefixWrapper.Merge(dst, src)
 }
 func (m *PrefixWrapper) XXX_Size() int {
 	return xxx_messageInfo_PrefixWrapper.Size(m)
@@ -206,17 +200,16 @@ func (m *CaptureSpec) Reset()         { *m = CaptureSpec{} }
 func (m *CaptureSpec) String() string { return proto.CompactTextString(m) }
 func (*CaptureSpec) ProtoMessage()    {}
 func (*CaptureSpec) Descriptor() ([]byte, []int) {
-	return fileDescriptor_20cff418fddf53fb, []int{2}
+	return fileDescriptor_common_0e8a8744c3d3391a, []int{2}
 }
-
 func (m *CaptureSpec) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CaptureSpec.Unmarshal(m, b)
 }
 func (m *CaptureSpec) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CaptureSpec.Marshal(b, m, deterministic)
 }
-func (m *CaptureSpec) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureSpec.Merge(m, src)
+func (dst *CaptureSpec) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CaptureSpec.Merge(dst, src)
 }
 func (m *CaptureSpec) XXX_Size() int {
 	return xxx_messageInfo_CaptureSpec.Size(m)
@@ -326,17 +319,17 @@ func (m *CaptureSpec) GetUsername() string {
 }
 
 func init() {
-	proto.RegisterEnum("common.CaptureSpec_Type", CaptureSpec_Type_name, CaptureSpec_Type_value)
 	proto.RegisterType((*IPAddressWrapper)(nil), "common.IPAddressWrapper")
 	proto.RegisterType((*PrefixWrapper)(nil), "common.PrefixWrapper")
 	proto.RegisterType((*CaptureSpec)(nil), "common.CaptureSpec")
+	proto.RegisterEnum("common.CaptureSpec_Type", CaptureSpec_Type_name, CaptureSpec_Type_value)
 }
 
 func init() {
-	proto.RegisterFile("github.com/CSUNetSec/netsec-protobufs/common/common.proto", fileDescriptor_20cff418fddf53fb)
+	proto.RegisterFile("github.com/CSUNetSec/netsec-protobufs/common/common.proto", fileDescriptor_common_0e8a8744c3d3391a)
 }
 
-var fileDescriptor_20cff418fddf53fb = []byte{
+var fileDescriptor_common_0e8a8744c3d3391a = []byte{
 	// 510 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x93, 0x4b, 0x4f, 0xdb, 0x40,
 	0x10, 0xc7, 0x1b, 0x08, 0x21, 0x4c, 0x1e, 0x35, 0x5b, 0x54, 0xad, 0x7a, 0x4a, 0x73, 0xa8, 0xd2,

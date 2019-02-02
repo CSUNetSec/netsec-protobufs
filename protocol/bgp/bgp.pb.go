@@ -3,12 +3,10 @@
 
 package bgp
 
-import (
-	fmt "fmt"
-	common "github.com/CSUNetSec/netsec-protobufs/common"
-	proto "github.com/golang/protobuf/proto"
-	math "math"
-)
+import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
+import common "github.com/CSUNetSec/netsec-protobufs/common"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -19,11 +17,11 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-//maximal field value = 13
-//https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-parameters-2
-//non deprecated as of 01/2018
+// maximal field value = 13
+// https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-parameters-2
+// non deprecated as of 01/2018
 type BGPUpdate_Attributes_Type int32
 
 const (
@@ -83,7 +81,6 @@ var BGPUpdate_Attributes_Type_name = map[int32]string{
 	33:  "BGPSEC_PATH",
 	128: "ATTR_SET",
 }
-
 var BGPUpdate_Attributes_Type_value = map[string]int32{
 	"UNKNOWN":                        0,
 	"ORIGIN":                         1,
@@ -116,9 +113,8 @@ var BGPUpdate_Attributes_Type_value = map[string]int32{
 func (x BGPUpdate_Attributes_Type) String() string {
 	return proto.EnumName(BGPUpdate_Attributes_Type_name, int32(x))
 }
-
 func (BGPUpdate_Attributes_Type) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 5, 0}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 5, 0}
 }
 
 type BGPUpdate_Attributes_Origin int32
@@ -134,7 +130,6 @@ var BGPUpdate_Attributes_Origin_name = map[int32]string{
 	1: "EGP",
 	2: "INC",
 }
-
 var BGPUpdate_Attributes_Origin_value = map[string]int32{
 	"IGP": 0,
 	"EGP": 1,
@@ -144,9 +139,8 @@ var BGPUpdate_Attributes_Origin_value = map[string]int32{
 func (x BGPUpdate_Attributes_Origin) String() string {
 	return proto.EnumName(BGPUpdate_Attributes_Origin_name, int32(x))
 }
-
 func (BGPUpdate_Attributes_Origin) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 5, 1}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 5, 1}
 }
 
 type MrtMessage struct {
@@ -161,17 +155,16 @@ func (m *MrtMessage) Reset()         { *m = MrtMessage{} }
 func (m *MrtMessage) String() string { return proto.CompactTextString(m) }
 func (*MrtMessage) ProtoMessage()    {}
 func (*MrtMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{0}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{0}
 }
-
 func (m *MrtMessage) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MrtMessage.Unmarshal(m, b)
 }
 func (m *MrtMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_MrtMessage.Marshal(b, m, deterministic)
 }
-func (m *MrtMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MrtMessage.Merge(m, src)
+func (dst *MrtMessage) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MrtMessage.Merge(dst, src)
 }
 func (m *MrtMessage) XXX_Size() int {
 	return xxx_messageInfo_MrtMessage.Size(m)
@@ -210,17 +203,16 @@ func (m *MrtHeader) Reset()         { *m = MrtHeader{} }
 func (m *MrtHeader) String() string { return proto.CompactTextString(m) }
 func (*MrtHeader) ProtoMessage()    {}
 func (*MrtHeader) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{1}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{1}
 }
-
 func (m *MrtHeader) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MrtHeader.Unmarshal(m, b)
 }
 func (m *MrtHeader) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_MrtHeader.Marshal(b, m, deterministic)
 }
-func (m *MrtHeader) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MrtHeader.Merge(m, src)
+func (dst *MrtHeader) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MrtHeader.Merge(dst, src)
 }
 func (m *MrtHeader) XXX_Size() int {
 	return xxx_messageInfo_MrtHeader.Size(m)
@@ -272,17 +264,16 @@ func (m *MrtBody) Reset()         { *m = MrtBody{} }
 func (m *MrtBody) String() string { return proto.CompactTextString(m) }
 func (*MrtBody) ProtoMessage()    {}
 func (*MrtBody) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{2}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{2}
 }
-
 func (m *MrtBody) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MrtBody.Unmarshal(m, b)
 }
 func (m *MrtBody) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_MrtBody.Marshal(b, m, deterministic)
 }
-func (m *MrtBody) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MrtBody.Merge(m, src)
+func (dst *MrtBody) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MrtBody.Merge(dst, src)
 }
 func (m *MrtBody) XXX_Size() int {
 	return xxx_messageInfo_MrtBody.Size(m)
@@ -326,17 +317,16 @@ func (m *RIB) Reset()         { *m = RIB{} }
 func (m *RIB) String() string { return proto.CompactTextString(m) }
 func (*RIB) ProtoMessage()    {}
 func (*RIB) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{3}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{3}
 }
-
 func (m *RIB) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RIB.Unmarshal(m, b)
 }
 func (m *RIB) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RIB.Marshal(b, m, deterministic)
 }
-func (m *RIB) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RIB.Merge(m, src)
+func (dst *RIB) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RIB.Merge(dst, src)
 }
 func (m *RIB) XXX_Size() int {
 	return xxx_messageInfo_RIB.Size(m)
@@ -374,17 +364,16 @@ func (m *PeerEntry) Reset()         { *m = PeerEntry{} }
 func (m *PeerEntry) String() string { return proto.CompactTextString(m) }
 func (*PeerEntry) ProtoMessage()    {}
 func (*PeerEntry) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{4}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{4}
 }
-
 func (m *PeerEntry) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PeerEntry.Unmarshal(m, b)
 }
 func (m *PeerEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PeerEntry.Marshal(b, m, deterministic)
 }
-func (m *PeerEntry) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PeerEntry.Merge(m, src)
+func (dst *PeerEntry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PeerEntry.Merge(dst, src)
 }
 func (m *PeerEntry) XXX_Size() int {
 	return xxx_messageInfo_PeerEntry.Size(m)
@@ -430,17 +419,16 @@ func (m *RIBEntry) Reset()         { *m = RIBEntry{} }
 func (m *RIBEntry) String() string { return proto.CompactTextString(m) }
 func (*RIBEntry) ProtoMessage()    {}
 func (*RIBEntry) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{5}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{5}
 }
-
 func (m *RIBEntry) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RIBEntry.Unmarshal(m, b)
 }
 func (m *RIBEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RIBEntry.Marshal(b, m, deterministic)
 }
-func (m *RIBEntry) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RIBEntry.Merge(m, src)
+func (dst *RIBEntry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RIBEntry.Merge(dst, src)
 }
 func (m *RIBEntry) XXX_Size() int {
 	return xxx_messageInfo_RIBEntry.Size(m)
@@ -496,17 +484,16 @@ func (m *BGP4MPHeader) Reset()         { *m = BGP4MPHeader{} }
 func (m *BGP4MPHeader) String() string { return proto.CompactTextString(m) }
 func (*BGP4MPHeader) ProtoMessage()    {}
 func (*BGP4MPHeader) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{6}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{6}
 }
-
 func (m *BGP4MPHeader) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGP4MPHeader.Unmarshal(m, b)
 }
 func (m *BGP4MPHeader) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGP4MPHeader.Marshal(b, m, deterministic)
 }
-func (m *BGP4MPHeader) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGP4MPHeader.Merge(m, src)
+func (dst *BGP4MPHeader) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGP4MPHeader.Merge(dst, src)
 }
 func (m *BGP4MPHeader) XXX_Size() int {
 	return xxx_messageInfo_BGP4MPHeader.Size(m)
@@ -582,17 +569,16 @@ func (m *BGPHeader) Reset()         { *m = BGPHeader{} }
 func (m *BGPHeader) String() string { return proto.CompactTextString(m) }
 func (*BGPHeader) ProtoMessage()    {}
 func (*BGPHeader) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{7}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{7}
 }
-
 func (m *BGPHeader) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPHeader.Unmarshal(m, b)
 }
 func (m *BGPHeader) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPHeader.Marshal(b, m, deterministic)
 }
-func (m *BGPHeader) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPHeader.Merge(m, src)
+func (dst *BGPHeader) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPHeader.Merge(dst, src)
 }
 func (m *BGPHeader) XXX_Size() int {
 	return xxx_messageInfo_BGPHeader.Size(m)
@@ -639,17 +625,16 @@ func (m *BGPUpdate) Reset()         { *m = BGPUpdate{} }
 func (m *BGPUpdate) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate) ProtoMessage()    {}
 func (*BGPUpdate) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8}
 }
-
 func (m *BGPUpdate) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate.Unmarshal(m, b)
 }
 func (m *BGPUpdate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate.Merge(m, src)
+func (dst *BGPUpdate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate.Merge(dst, src)
 }
 func (m *BGPUpdate) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate.Size(m)
@@ -695,17 +680,16 @@ func (m *BGPUpdate_ASPathSegment) Reset()         { *m = BGPUpdate_ASPathSegment
 func (m *BGPUpdate_ASPathSegment) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate_ASPathSegment) ProtoMessage()    {}
 func (*BGPUpdate_ASPathSegment) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 0}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 0}
 }
-
 func (m *BGPUpdate_ASPathSegment) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate_ASPathSegment.Unmarshal(m, b)
 }
 func (m *BGPUpdate_ASPathSegment) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate_ASPathSegment.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate_ASPathSegment) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate_ASPathSegment.Merge(m, src)
+func (dst *BGPUpdate_ASPathSegment) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate_ASPathSegment.Merge(dst, src)
 }
 func (m *BGPUpdate_ASPathSegment) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate_ASPathSegment.Size(m)
@@ -743,17 +727,16 @@ func (m *BGPUpdate_AdvertizedRoutes) Reset()         { *m = BGPUpdate_Advertized
 func (m *BGPUpdate_AdvertizedRoutes) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate_AdvertizedRoutes) ProtoMessage()    {}
 func (*BGPUpdate_AdvertizedRoutes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 1}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 1}
 }
-
 func (m *BGPUpdate_AdvertizedRoutes) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate_AdvertizedRoutes.Unmarshal(m, b)
 }
 func (m *BGPUpdate_AdvertizedRoutes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate_AdvertizedRoutes.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate_AdvertizedRoutes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate_AdvertizedRoutes.Merge(m, src)
+func (dst *BGPUpdate_AdvertizedRoutes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate_AdvertizedRoutes.Merge(dst, src)
 }
 func (m *BGPUpdate_AdvertizedRoutes) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate_AdvertizedRoutes.Size(m)
@@ -783,17 +766,16 @@ func (m *BGPUpdate_Aggregator) Reset()         { *m = BGPUpdate_Aggregator{} }
 func (m *BGPUpdate_Aggregator) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate_Aggregator) ProtoMessage()    {}
 func (*BGPUpdate_Aggregator) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 2}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 2}
 }
-
 func (m *BGPUpdate_Aggregator) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate_Aggregator.Unmarshal(m, b)
 }
 func (m *BGPUpdate_Aggregator) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate_Aggregator.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate_Aggregator) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate_Aggregator.Merge(m, src)
+func (dst *BGPUpdate_Aggregator) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate_Aggregator.Merge(dst, src)
 }
 func (m *BGPUpdate_Aggregator) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate_Aggregator.Size(m)
@@ -832,17 +814,16 @@ func (m *BGPUpdate_Community) Reset()         { *m = BGPUpdate_Community{} }
 func (m *BGPUpdate_Community) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate_Community) ProtoMessage()    {}
 func (*BGPUpdate_Community) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 3}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 3}
 }
-
 func (m *BGPUpdate_Community) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate_Community.Unmarshal(m, b)
 }
 func (m *BGPUpdate_Community) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate_Community.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate_Community) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate_Community.Merge(m, src)
+func (dst *BGPUpdate_Community) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate_Community.Merge(dst, src)
 }
 func (m *BGPUpdate_Community) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate_Community.Size(m)
@@ -878,17 +859,16 @@ func (m *BGPUpdate_Communities) Reset()         { *m = BGPUpdate_Communities{} }
 func (m *BGPUpdate_Communities) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate_Communities) ProtoMessage()    {}
 func (*BGPUpdate_Communities) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 4}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 4}
 }
-
 func (m *BGPUpdate_Communities) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate_Communities.Unmarshal(m, b)
 }
 func (m *BGPUpdate_Communities) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate_Communities.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate_Communities) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate_Communities.Merge(m, src)
+func (dst *BGPUpdate_Communities) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate_Communities.Merge(dst, src)
 }
 func (m *BGPUpdate_Communities) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate_Communities.Size(m)
@@ -929,17 +909,16 @@ func (m *BGPUpdate_Attributes) Reset()         { *m = BGPUpdate_Attributes{} }
 func (m *BGPUpdate_Attributes) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate_Attributes) ProtoMessage()    {}
 func (*BGPUpdate_Attributes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 5}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 5}
 }
-
 func (m *BGPUpdate_Attributes) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate_Attributes.Unmarshal(m, b)
 }
 func (m *BGPUpdate_Attributes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate_Attributes.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate_Attributes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate_Attributes.Merge(m, src)
+func (dst *BGPUpdate_Attributes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate_Attributes.Merge(dst, src)
 }
 func (m *BGPUpdate_Attributes) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate_Attributes.Size(m)
@@ -1052,17 +1031,16 @@ func (m *BGPUpdate_WithdrawnRoutes) Reset()         { *m = BGPUpdate_WithdrawnRo
 func (m *BGPUpdate_WithdrawnRoutes) String() string { return proto.CompactTextString(m) }
 func (*BGPUpdate_WithdrawnRoutes) ProtoMessage()    {}
 func (*BGPUpdate_WithdrawnRoutes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fc0450a70c97ba14, []int{8, 6}
+	return fileDescriptor_bgp_b33b701f23ddd12e, []int{8, 6}
 }
-
 func (m *BGPUpdate_WithdrawnRoutes) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BGPUpdate_WithdrawnRoutes.Unmarshal(m, b)
 }
 func (m *BGPUpdate_WithdrawnRoutes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BGPUpdate_WithdrawnRoutes.Marshal(b, m, deterministic)
 }
-func (m *BGPUpdate_WithdrawnRoutes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BGPUpdate_WithdrawnRoutes.Merge(m, src)
+func (dst *BGPUpdate_WithdrawnRoutes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGPUpdate_WithdrawnRoutes.Merge(dst, src)
 }
 func (m *BGPUpdate_WithdrawnRoutes) XXX_Size() int {
 	return xxx_messageInfo_BGPUpdate_WithdrawnRoutes.Size(m)
@@ -1081,8 +1059,6 @@ func (m *BGPUpdate_WithdrawnRoutes) GetPrefixes() []*common.PrefixWrapper {
 }
 
 func init() {
-	proto.RegisterEnum("bgp.BGPUpdate_Attributes_Type", BGPUpdate_Attributes_Type_name, BGPUpdate_Attributes_Type_value)
-	proto.RegisterEnum("bgp.BGPUpdate_Attributes_Origin", BGPUpdate_Attributes_Origin_name, BGPUpdate_Attributes_Origin_value)
 	proto.RegisterType((*MrtMessage)(nil), "bgp.MrtMessage")
 	proto.RegisterType((*MrtHeader)(nil), "bgp.MrtHeader")
 	proto.RegisterType((*MrtBody)(nil), "bgp.MrtBody")
@@ -1099,13 +1075,15 @@ func init() {
 	proto.RegisterType((*BGPUpdate_Communities)(nil), "bgp.BGPUpdate.Communities")
 	proto.RegisterType((*BGPUpdate_Attributes)(nil), "bgp.BGPUpdate.Attributes")
 	proto.RegisterType((*BGPUpdate_WithdrawnRoutes)(nil), "bgp.BGPUpdate.WithdrawnRoutes")
+	proto.RegisterEnum("bgp.BGPUpdate_Attributes_Type", BGPUpdate_Attributes_Type_name, BGPUpdate_Attributes_Type_value)
+	proto.RegisterEnum("bgp.BGPUpdate_Attributes_Origin", BGPUpdate_Attributes_Origin_name, BGPUpdate_Attributes_Origin_value)
 }
 
 func init() {
-	proto.RegisterFile("github.com/CSUNetSec/netsec-protobufs/protocol/bgp/bgp.proto", fileDescriptor_fc0450a70c97ba14)
+	proto.RegisterFile("github.com/CSUNetSec/netsec-protobufs/protocol/bgp/bgp.proto", fileDescriptor_bgp_b33b701f23ddd12e)
 }
 
-var fileDescriptor_fc0450a70c97ba14 = []byte{
+var fileDescriptor_bgp_b33b701f23ddd12e = []byte{
 	// 1419 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x56, 0x5b, 0x6f, 0xdb, 0xc8,
 	0x15, 0x8e, 0x2e, 0xd6, 0xe5, 0xe8, 0x62, 0x7a, 0xd2, 0xc4, 0x8c, 0x72, 0x73, 0x54, 0xb4, 0x75,

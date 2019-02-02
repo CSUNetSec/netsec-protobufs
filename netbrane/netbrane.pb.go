@@ -3,14 +3,12 @@
 
 package netbrane
 
-import (
-	fmt "fmt"
-	common "github.com/CSUNetSec/netsec-protobufs/common"
-	proddle "github.com/CSUNetSec/netsec-protobufs/proddle"
-	bgp "github.com/CSUNetSec/netsec-protobufs/protocol/bgp"
-	proto "github.com/golang/protobuf/proto"
-	math "math"
-)
+import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
+import common "github.com/CSUNetSec/netsec-protobufs/common"
+import proddle "github.com/CSUNetSec/netsec-protobufs/proddle"
+import bgp "github.com/CSUNetSec/netsec-protobufs/protocol/bgp"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -21,7 +19,7 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type FlowRecord_L2Proto int32
 
@@ -34,7 +32,6 @@ var FlowRecord_L2Proto_name = map[int32]string{
 	0: "L2_NONE",
 	1: "L2_ETHERNET",
 }
-
 var FlowRecord_L2Proto_value = map[string]int32{
 	"L2_NONE":     0,
 	"L2_ETHERNET": 1,
@@ -43,9 +40,8 @@ var FlowRecord_L2Proto_value = map[string]int32{
 func (x FlowRecord_L2Proto) String() string {
 	return proto.EnumName(FlowRecord_L2Proto_name, int32(x))
 }
-
 func (FlowRecord_L2Proto) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_d9ffce2bb6dbb43e, []int{2, 0}
+	return fileDescriptor_netbrane_d51bb0b5ff8afa59, []int{2, 0}
 }
 
 type CaptureRecordUnion_RecordType int32
@@ -67,7 +63,6 @@ var CaptureRecordUnion_RecordType_name = map[int32]string{
 	4: "PROBE_RECORD",
 	5: "PROBE_RESULT_RECORD",
 }
-
 var CaptureRecordUnion_RecordType_value = map[string]int32{
 	"CAPTURE_SPEC":        0,
 	"FLOW_RECORD":         1,
@@ -80,9 +75,8 @@ var CaptureRecordUnion_RecordType_value = map[string]int32{
 func (x CaptureRecordUnion_RecordType) String() string {
 	return proto.EnumName(CaptureRecordUnion_RecordType_name, int32(x))
 }
-
 func (CaptureRecordUnion_RecordType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_d9ffce2bb6dbb43e, []int{4, 0}
+	return fileDescriptor_netbrane_d51bb0b5ff8afa59, []int{4, 0}
 }
 
 // We don't always capture packet data. If we do, this is
@@ -115,17 +109,16 @@ func (m *PacketData) Reset()         { *m = PacketData{} }
 func (m *PacketData) String() string { return proto.CompactTextString(m) }
 func (*PacketData) ProtoMessage()    {}
 func (*PacketData) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d9ffce2bb6dbb43e, []int{0}
+	return fileDescriptor_netbrane_d51bb0b5ff8afa59, []int{0}
 }
-
 func (m *PacketData) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PacketData.Unmarshal(m, b)
 }
 func (m *PacketData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PacketData.Marshal(b, m, deterministic)
 }
-func (m *PacketData) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PacketData.Merge(m, src)
+func (dst *PacketData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PacketData.Merge(dst, src)
 }
 func (m *PacketData) XXX_Size() int {
 	return xxx_messageInfo_PacketData.Size(m)
@@ -273,17 +266,16 @@ func (m *IPFlow) Reset()         { *m = IPFlow{} }
 func (m *IPFlow) String() string { return proto.CompactTextString(m) }
 func (*IPFlow) ProtoMessage()    {}
 func (*IPFlow) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d9ffce2bb6dbb43e, []int{1}
+	return fileDescriptor_netbrane_d51bb0b5ff8afa59, []int{1}
 }
-
 func (m *IPFlow) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_IPFlow.Unmarshal(m, b)
 }
 func (m *IPFlow) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_IPFlow.Marshal(b, m, deterministic)
 }
-func (m *IPFlow) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IPFlow.Merge(m, src)
+func (dst *IPFlow) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IPFlow.Merge(dst, src)
 }
 func (m *IPFlow) XXX_Size() int {
 	return xxx_messageInfo_IPFlow.Size(m)
@@ -482,17 +474,16 @@ func (m *FlowRecord) Reset()         { *m = FlowRecord{} }
 func (m *FlowRecord) String() string { return proto.CompactTextString(m) }
 func (*FlowRecord) ProtoMessage()    {}
 func (*FlowRecord) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d9ffce2bb6dbb43e, []int{2}
+	return fileDescriptor_netbrane_d51bb0b5ff8afa59, []int{2}
 }
-
 func (m *FlowRecord) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_FlowRecord.Unmarshal(m, b)
 }
 func (m *FlowRecord) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_FlowRecord.Marshal(b, m, deterministic)
 }
-func (m *FlowRecord) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FlowRecord.Merge(m, src)
+func (dst *FlowRecord) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FlowRecord.Merge(dst, src)
 }
 func (m *FlowRecord) XXX_Size() int {
 	return xxx_messageInfo_FlowRecord.Size(m)
@@ -599,17 +590,16 @@ func (m *DNSRecord) Reset()         { *m = DNSRecord{} }
 func (m *DNSRecord) String() string { return proto.CompactTextString(m) }
 func (*DNSRecord) ProtoMessage()    {}
 func (*DNSRecord) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d9ffce2bb6dbb43e, []int{3}
+	return fileDescriptor_netbrane_d51bb0b5ff8afa59, []int{3}
 }
-
 func (m *DNSRecord) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DNSRecord.Unmarshal(m, b)
 }
 func (m *DNSRecord) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_DNSRecord.Marshal(b, m, deterministic)
 }
-func (m *DNSRecord) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DNSRecord.Merge(m, src)
+func (dst *DNSRecord) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DNSRecord.Merge(dst, src)
 }
 func (m *DNSRecord) XXX_Size() int {
 	return xxx_messageInfo_DNSRecord.Size(m)
@@ -686,17 +676,16 @@ func (m *CaptureRecordUnion) Reset()         { *m = CaptureRecordUnion{} }
 func (m *CaptureRecordUnion) String() string { return proto.CompactTextString(m) }
 func (*CaptureRecordUnion) ProtoMessage()    {}
 func (*CaptureRecordUnion) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d9ffce2bb6dbb43e, []int{4}
+	return fileDescriptor_netbrane_d51bb0b5ff8afa59, []int{4}
 }
-
 func (m *CaptureRecordUnion) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CaptureRecordUnion.Unmarshal(m, b)
 }
 func (m *CaptureRecordUnion) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CaptureRecordUnion.Marshal(b, m, deterministic)
 }
-func (m *CaptureRecordUnion) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CaptureRecordUnion.Merge(m, src)
+func (dst *CaptureRecordUnion) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CaptureRecordUnion.Merge(dst, src)
 }
 func (m *CaptureRecordUnion) XXX_Size() int {
 	return xxx_messageInfo_CaptureRecordUnion.Size(m)
@@ -764,20 +753,20 @@ func (m *CaptureRecordUnion) GetProbeResultRecord() *proddle.ProbeResult {
 }
 
 func init() {
-	proto.RegisterEnum("netbrane.FlowRecord_L2Proto", FlowRecord_L2Proto_name, FlowRecord_L2Proto_value)
-	proto.RegisterEnum("netbrane.CaptureRecordUnion_RecordType", CaptureRecordUnion_RecordType_name, CaptureRecordUnion_RecordType_value)
 	proto.RegisterType((*PacketData)(nil), "netbrane.PacketData")
 	proto.RegisterType((*IPFlow)(nil), "netbrane.IPFlow")
 	proto.RegisterType((*FlowRecord)(nil), "netbrane.FlowRecord")
 	proto.RegisterType((*DNSRecord)(nil), "netbrane.DNSRecord")
 	proto.RegisterType((*CaptureRecordUnion)(nil), "netbrane.CaptureRecordUnion")
+	proto.RegisterEnum("netbrane.FlowRecord_L2Proto", FlowRecord_L2Proto_name, FlowRecord_L2Proto_value)
+	proto.RegisterEnum("netbrane.CaptureRecordUnion_RecordType", CaptureRecordUnion_RecordType_name, CaptureRecordUnion_RecordType_value)
 }
 
 func init() {
-	proto.RegisterFile("github.com/CSUNetSec/netsec-protobufs/netbrane/netbrane.proto", fileDescriptor_d9ffce2bb6dbb43e)
+	proto.RegisterFile("github.com/CSUNetSec/netsec-protobufs/netbrane/netbrane.proto", fileDescriptor_netbrane_d51bb0b5ff8afa59)
 }
 
-var fileDescriptor_d9ffce2bb6dbb43e = []byte{
+var fileDescriptor_netbrane_d51bb0b5ff8afa59 = []byte{
 	// 1292 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x56, 0x4d, 0x6f, 0xdb, 0x46,
 	0x13, 0x7e, 0x25, 0xea, 0x73, 0x28, 0xcb, 0xf2, 0xda, 0x49, 0xf8, 0x1a, 0x2d, 0xaa, 0xea, 0xd0,
