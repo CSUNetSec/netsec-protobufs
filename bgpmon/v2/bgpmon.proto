@@ -12,7 +12,7 @@ service Bgpmond {
 	rpc OpenSession(OpenSessionRequest) returns (OpenSessionReply) {}
 	rpc Write(stream WriteRequest) returns (WriteReply) {}
 	rpc Get(GetRequest) returns (stream GetReply) {}
-    rpc GetSessionInfo(SessionInfoRequest) returns (SessionInfoReply) {}
+	rpc GetSessionInfo(SessionInfoRequest) returns (SessionInfoReply) {}
 }
 
 message Empty {
@@ -106,26 +106,33 @@ message WriteReply {
  * Get Messages
  */
 message GetRequest {
-	//maximal field value = 4
+	//maximal field value = 3
 
 	enum Type {
-		BGP_CAPTURE = 0;
+		CAPTURE = 0;
+		PREFIX = 1;
+		ASPATH = 2;
 	}
 	Type type = 1;
 	string session_id = 2;
+	repeated Filter filters = 3;
+}
+
+message  Filter {
+	//maximal field value = 5
+	uint32 origin_as = 1;
+	string advertized_prefix = 2;
 	string start_timestamp = 3;
-	string end_timestamp = 4;
+        string end_timestamp = 4;
+	string collector_name = 5;
 }
 
 message GetReply {
-	//maximal field value = 2
-
-	enum Type {
-		BGP_CAPTURE = 0;
-	}
-	Type type = 1;
+	//maximal field value = 4
+	GetRequest.Type type = 1;
 	repeated BGPCapture captures = 2;
 	string error = 3;
+	bytes chunk = 4;
 }
 
 // a message of Capture type to facilitate the represtation of a
