@@ -120,18 +120,19 @@ message GetRequest {
 }
 
 message  Filter {
-	//maximal field value = 4
+	//maximal field value = 6
 	enum FilterType {
 		ORIGIN_AS = 0;
 		TIME = 1;
 		PREFIXEXACT = 2;
 		PREFIXINCLUDED = 3;
 	}
-	uint32 origin_as = 1;
-	string advertized_prefix = 2;
-	string start_timestamp = 3;
-        string end_timestamp = 4;
-	string withdrawn_prefix = 5;
+	FilterType type = 1;
+	uint32 origin_as = 2;
+	string advertized_prefix = 3;
+	string start_timestamp = 4;
+        string end_timestamp = 5;
+	string withdrawn_prefix = 6;
 }
 
 message GetReply {
