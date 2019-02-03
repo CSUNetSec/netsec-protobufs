@@ -106,7 +106,7 @@ message WriteReply {
  * Get Messages
  */
 message GetRequest {
-	//maximal field value = 3
+	//maximal field value = 4
 
 	enum Type {
 		CAPTURE = 0;
@@ -116,15 +116,22 @@ message GetRequest {
 	Type type = 1;
 	string session_id = 2;
 	repeated Filter filters = 3;
+	string collector_name = 4;
 }
 
 message  Filter {
-	//maximal field value = 5
+	//maximal field value = 4
+	enum FilterType {
+		ORIGIN_AS = 0;
+		TIME = 1;
+		PREFIXEXACT = 2;
+		PREFIXINCLUDED = 3;
+	}
 	uint32 origin_as = 1;
 	string advertized_prefix = 2;
 	string start_timestamp = 3;
         string end_timestamp = 4;
-	string collector_name = 5;
+	string withdrawn_prefix = 5;
 }
 
 message GetReply {
