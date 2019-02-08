@@ -117,8 +117,8 @@ message GetRequest {
 	string session_id = 2;
 	repeated Filter filters = 3;
 	string collector_name = 4;
-	string start_timestamp = 5;
-        string end_timestamp = 6;
+	uint64 start_timestamp = 5;
+        uint64 end_timestamp = 6;
 }
 
 message  Filter {
