@@ -106,7 +106,7 @@ message WriteReply {
  * Get Messages
  */
 message GetRequest {
-	//maximal field value = 4
+	//maximal field value = 6
 
 	enum Type {
 		CAPTURE = 0;
@@ -117,30 +117,35 @@ message GetRequest {
 	string session_id = 2;
 	repeated Filter filters = 3;
 	string collector_name = 4;
+	string start_timestamp = 5;
+        string end_timestamp = 6;
 }
 
 message  Filter {
-	//maximal field value = 6
+	//maximal field value = 4
 	enum FilterType {
 		ORIGIN_AS = 0;
-		TIME = 1;
-		PREFIXEXACT = 2;
-		PREFIXINCLUDED = 3;
+		PREFIXEXACT = 1;
+		PREFIXINCLUDED = 2;
 	}
 	FilterType type = 1;
 	uint32 origin_as = 2;
 	string advertized_prefix = 3;
-	string start_timestamp = 4;
-        string end_timestamp = 5;
-	string withdrawn_prefix = 6;
+	string withdrawn_prefix = 4;
 }
 
+//GetReply carries chunks of a PBStream byte array.
+//If it is incomplete then the client should read all
+//the following messages until the incomplete flag is not set
+//and then try to unmarshal the message. Also the Type once an
+//incomplete stream starts has to remain the same accros all subsequent
+//messages
 message GetReply {
 	//maximal field value = 4
 	GetRequest.Type type = 1;
-	repeated BGPCapture captures = 2;
-	string error = 3;
-	bytes chunk = 4;
+	string error = 2;
+	bool incomplete = 3;
+	repeated bytes chunk = 4;
 }
 
 // a message of Capture type to facilitate the represtation of a
