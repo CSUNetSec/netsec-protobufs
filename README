@@ -17,3 +17,8 @@ etc
 
 If you wish to generated the .go files run: 
 make go
+
+
+Currently it requires that you install protoc-gen-go from the v1.2.0 tag
+since there are still breaking changes as golang moves to modules instead
+of GOPATH. Follow instructions in https://github.com/golang/protobuf
