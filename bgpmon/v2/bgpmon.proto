@@ -13,9 +13,66 @@ service Bgpmond {
 	rpc Write(stream WriteRequest) returns (WriteReply) {}
 	rpc Get(GetRequest) returns (stream GetReply) {}
 	rpc GetSessionInfo(SessionInfoRequest) returns (SessionInfoReply) {}
+
+    rpc RunModule(RunModuleRequest) returns (RunModuleReply) {}
+    rpc CloseModule(CloseModuleRequest) returns (Empty) {}
+    rpc ListAvailableModules(Empty) returns (ListAvailableModulesReply) {}
+    rpc ListOpenModules(Empty) returns (ListOpenModulesReply) {}
 }
 
 message Empty {
+}
+
+/*
+ * Module Messages
+ */
+
+message RunModuleRequest {
+    // maximal field value = 3
+
+    string type = 1;
+    string id = 2;
+    string args = 3;
+}
+
+message RunModuleReply {
+    // maximal field value = 1
+
+    string id = 1;
+}
+
+message CloseModuleRequest {
+    // maximal field value = 1
+
+    string id = 1;
+}
+
+message ModuleInfo {
+    // maximal field value = 3
+
+    string type = 1;
+    string desc = 2;
+    string opts = 3;
+}
+
+message ListAvailableModulesReply {
+    // maximal field value = 1
+
+    repeated ModuleInfo available_modules = 1;
+}
+
+message OpenModuleInfo {
+    // maximal field value = 3
+
+    string type = 1;
+    string id = 2;
+    string status = 3;
+}
+
+message ListOpenModulesReply {
+    // maximal field value = 1
+
+    repeated OpenModuleInfo open_modules = 1;
 }
 
 /*
