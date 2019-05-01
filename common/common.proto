@@ -6,8 +6,8 @@ message IPAddressWrapper {
   //maximal field value = 2
 
   // must be at least one or the other
-  bytes ipv4 = 1;
-  bytes ipv6 = 2;
+  bytes IPv4 = 1;
+  bytes IPv6 = 2;
 }
 
 message PrefixWrapper {
@@ -52,7 +52,7 @@ message CaptureSpec {
   string capture_location = 3;
 
   // What is the location in terms of IP
-  common.IPAddressWrapper capture_location_ip = 4;
+  common.IPAddressWrapper capture_location_IP = 4;
 
   // if the capture node has a dns name, this is it
   // FQDN e.g., intercept.ny.nofutz.com

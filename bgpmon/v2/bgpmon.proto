@@ -14,10 +14,10 @@ service Bgpmond {
 	rpc Get(GetRequest) returns (stream GetReply) {}
 	rpc GetSessionInfo(SessionInfoRequest) returns (SessionInfoReply) {}
 
-    rpc RunModule(RunModuleRequest) returns (RunModuleReply) {}
-    rpc CloseModule(CloseModuleRequest) returns (Empty) {}
-    rpc ListAvailableModules(Empty) returns (ListAvailableModulesReply) {}
-    rpc ListOpenModules(Empty) returns (ListOpenModulesReply) {}
+        rpc RunModule(RunModuleRequest) returns (RunModuleReply) {}
+        rpc CloseModule(CloseModuleRequest) returns (Empty) {}
+        rpc ListAvailableModules(Empty) returns (ListAvailableModulesReply) {}
+        rpc ListOpenModules(Empty) returns (ListOpenModulesReply) {}
 }
 
 message Empty {
@@ -187,7 +187,7 @@ message  Filter {
 	}
 	FilterType type = 1;
 	uint32 origin_as = 2;
-	string advertized_prefix = 3;
+	string advertised_prefix = 3;
 	string withdrawn_prefix = 4;
 }
 
@@ -216,8 +216,8 @@ message BGPCapture {
 	uint32 local_as = 3;
 	uint32 interface_index = 4;
 	uint32 address_family = 5;
-	common.IPAddressWrapper peer_ip = 6;
-	common.IPAddressWrapper local_ip = 7;
+	common.IPAddressWrapper peer_IP = 6;
+	common.IPAddressWrapper local_IP = 7;
 	bgp.BGPUpdate update = 8;
 }
 
