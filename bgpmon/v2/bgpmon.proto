@@ -20,13 +20,12 @@ service Bgpmond {
         rpc ListOpenModules(Empty) returns (ListOpenModulesReply) {}
 }
 
+// Empty messages are used as return types for functions that don't need to return any data.
 message Empty {
 }
 
-/*
- * Module Messages
- */
-
+// RunModuleRequest messages contain the type of the module that is requested to 
+// run , the ID and the arguments it should be invoked with.
 message RunModuleRequest {
     // maximal field value = 3
 
@@ -35,18 +34,21 @@ message RunModuleRequest {
     string args = 3;
 }
 
+// RunModuleReply messages contain the ID of the module that was just set to run.
 message RunModuleReply {
     // maximal field value = 1
 
     string id = 1;
 }
 
+// CloseModuleRequest messages contain the ID of the module that is requested to be closed.
 message CloseModuleRequest {
     // maximal field value = 1
 
     string id = 1;
 }
 
+// ModuleInfo messages contain the type, description and option strings for a module.
 message ModuleInfo {
     // maximal field value = 3
 
@@ -55,12 +57,15 @@ message ModuleInfo {
     string opts = 3;
 }
 
+// ListAvailableModulesReply messages contain an array of ModuleInfo message
+// for available modules.
 message ListAvailableModulesReply {
     // maximal field value = 1
 
     repeated ModuleInfo available_modules = 1;
 }
 
+// OpenModuleInfo messages contain the type, ID and status of currently open modules.
 message OpenModuleInfo {
     // maximal field value = 3
 
@@ -69,30 +74,35 @@ message OpenModuleInfo {
     string status = 3;
 }
 
+// ListOpenModulesReply messages contain an array of OpenModuleInfo
+// messages for the currently open modules.
 message ListOpenModulesReply {
     // maximal field value = 1
 
     repeated OpenModuleInfo open_modules = 1;
 }
 
-/*
- * Session Messages
- */
 
+// SessionType message contain the name, type and description of
+// a session.
 message SessionType {
-	//maximal field value = 3
+	// maximal field value = 3
 
 	string name = 1;
 	string type = 2;
 	string desc = 3;
 }
 
+// SessionInfoRequest messages contain the ID of the session on which
+// more info is requested on.
 message SessionInfoRequest {
-    //maximal field value = 1
+    // maximal field value = 1
 
     string session_id = 1;
 }
 
+// SessionInfoReply messages contain the type and the configured number of 
+// workers for that session ID.
 message SessionInfoReply {
     //maximal field value = 3
 
@@ -101,46 +111,55 @@ message SessionInfoReply {
     uint32 workers = 3;
 }
 
+// ListAvailableSessionsReply messages return an array of the available
+// session type names.
 message ListAvailableSessionsReply {
-	//maximal field value = 1
+	// maximal field value = 1
 
 	repeated SessionType available_sessions = 1;
 }
 
-/*
- * Session Command Messages 
- */
+// CloseSessionRequest messages request the closing of 
+// session identified by ID.
 message CloseSessionRequest {
-	//maximal field value = 1
+	// maximal field value = 1
 
 	string session_id = 1;
 }
 
+// ListOpenSessionsReply messages return an array of the 
+// open session IDs.
+
 message ListOpenSessionsReply {
-	//maximal field value = 1
+	// maximal field value = 1
 
 	repeated string session_id = 1;
 }
 
+// OpenSessionRequest messages request the opening of a session
+// of a type named session_name, with an ID of session_id and the
+// specified amount of worker threads.
 message OpenSessionRequest {
-	//maximal field value = 3
+	// maximal field value = 3
 
 	string session_name = 1;
 	string session_id = 2;
 	uint32 workers = 3;
 }
 
+// OpenSessionReply message return the ID of the session that was just
+// opened.
 message OpenSessionReply {
-	//maximal field value = 1
+	// maximal field value = 1
 
 	string session_id = 1;
 }
 
-/*
- * Write Messages
- */
+// WriteRequest messages contain the type of the submessage that
+// is to be written as well as the session ID that this should be
+// performed on.
 message WriteRequest {
-	//maximal field value = 3
+	// maximal field value = 3
 
 	enum Type {
 		BGP_CAPTURE = 0;
@@ -151,6 +170,9 @@ message WriteRequest {
 	BGPCapture bgp_capture = 3;
 }
 
+// WriteReply messages return the total number of messages written, 
+// the time range the request took , the number of workers used for the
+// request as well as possible errors.
 message WriteReply {
 	uint64 totalMessages = 1;
 	uint64 startTime = 2;
@@ -159,11 +181,13 @@ message WriteReply {
 	string error = 5;
 }
 
-/*
- * Get Messages
- */
+// GetRequest messages contain the type of the
+// messages that the user wishes to have returned,
+// the session ID on which the request should be performed, 
+// the filters associated and the collector name and relevant
+// time range for the query.
 message GetRequest {
-	//maximal field value = 6
+	// maximal field value = 6
 
 	enum Type {
 		CAPTURE = 0;
@@ -178,46 +202,48 @@ message GetRequest {
         uint64 end_timestamp = 6;
 }
 
-message  Filter {
-	//maximal field value = 4
+// Filter messages contain the type of filter that is to be run
+// as well as field values that will be used to filter messages passed through
+// the filter.
+message Filter {
+	// maximal field value = 4
 	enum FilterType {
 		ORIGIN_AS = 0;
 		PREFIXEXACT = 1;
 		PREFIXINCLUDED = 2;
 	}
 	FilterType type = 1;
-	uint32 origin_as = 2;
+	uint32 origin_AS = 2;
 	string advertised_prefix = 3;
 	string withdrawn_prefix = 4;
 }
 
-//GetReply carries chunks of a PBStream byte array.
-//If it is incomplete then the client should read all
-//the following messages until the incomplete flag is not set
-//and then try to unmarshal the message. Also the Type once an
-//incomplete stream starts has to remain the same accros all subsequent
-//messages
+// GetReply carries chunks of a PBStream byte array.
+// If it is incomplete then the client should read all
+// the following messages until the incomplete flag is not set
+// and then try to unmarshal the message. Also the Type once an
+// incomplete stream starts has to remain the same accros all subsequent
+// messages
 message GetReply {
-	//maximal field value = 4
+	// maximal field value = 4
 	GetRequest.Type type = 1;
 	string error = 2;
 	bool incomplete = 3;
 	repeated bytes chunk = 4;
 }
 
-// a message of Capture type to facilitate the represtation of a
+// BGPCaprure messages facilitate the represtation of a
 // BGP Update from multuple sources (live/mrt etc) to bgpmon 
 // and other systems. the inner actual update is defined in protocol/bgp
 message BGPCapture {
-	//maximal field value = 8
+	// maximal field value = 8
 
 	uint32 timestamp = 1;
-	uint32 peer_as = 2;
-	uint32 local_as = 3;
+	uint32 peer_AS = 2;
+	uint32 local_AS = 3;
 	uint32 interface_index = 4;
 	uint32 address_family = 5;
 	common.IPAddressWrapper peer_IP = 6;
 	common.IPAddressWrapper local_IP = 7;
 	bgp.BGPUpdate update = 8;
 }
-
