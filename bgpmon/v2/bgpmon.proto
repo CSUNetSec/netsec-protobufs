@@ -14,10 +14,10 @@ service Bgpmond {
 	rpc Get(GetRequest) returns (stream GetReply) {}
 	rpc GetSessionInfo(SessionInfoRequest) returns (SessionInfoReply) {}
 
-        rpc RunModule(RunModuleRequest) returns (RunModuleReply) {}
-        rpc CloseModule(CloseModuleRequest) returns (Empty) {}
-        rpc ListAvailableModules(Empty) returns (ListAvailableModulesReply) {}
-        rpc ListOpenModules(Empty) returns (ListOpenModulesReply) {}
+    rpc RunModule(RunModuleRequest) returns (RunModuleReply) {}
+    rpc CloseModule(CloseModuleRequest) returns (Empty) {}
+    rpc ListAvailableModules(Empty) returns (ListAvailableModulesReply) {}
+    rpc ListOpenModules(Empty) returns (ListOpenModulesReply) {}
 }
 
 // Empty messages are used as return types for functions that don't need to return any data.
@@ -159,15 +159,17 @@ message OpenSessionReply {
 // is to be written as well as the session ID that this should be
 // performed on.
 message WriteRequest {
-	// maximal field value = 3
+	// maximal field value = 4
 
 	enum Type {
 		BGP_CAPTURE = 0;
+        ENTITY = 1;
 	}
 
 	Type type = 1;
 	string session_id = 2;
 	BGPCapture bgp_capture = 3;
+    Entity entity = 4;
 }
 
 // WriteReply messages return the total number of messages written, 
@@ -193,13 +195,14 @@ message GetRequest {
 		CAPTURE = 0;
 		PREFIX = 1;
 		ASPATH = 2;
+        ENTITY = 3;
 	}
 	Type type = 1;
 	string session_id = 2;
 	repeated Filter filters = 3;
 	string collector_name = 4;
 	uint64 start_timestamp = 5;
-        uint64 end_timestamp = 6;
+    uint64 end_timestamp = 6;
 }
 
 // Filter messages contain the type of filter that is to be run
@@ -246,4 +249,12 @@ message BGPCapture {
 	common.IPAddressWrapper peer_IP = 6;
 	common.IPAddressWrapper local_IP = 7;
 	bgp.BGPUpdate update = 8;
+}
+
+message Entity {
+    // maximal field value = 4
+    string name = 1;
+    string email = 2;
+    repeated int32 ownedOrigins = 3;
+    repeated common.PrefixWrapper ownedPrefixes = 4;
 }
